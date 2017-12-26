@@ -1,7 +1,9 @@
 # DJ-Comps-Book-Exchange
 Book Exchange Web-app for exchange and transfer of books between juniors and seniors
 
-Features:
+----------
+
+## Features:
 
 Forum to post a request for books: The forum can be used to ask for specific books, links to books, advice about ideal books to use etc. The forum should have topics, posts and threads (like StackOverflow).
 One to one chat for potential buyers/borrowers and sellers/lenders: The chat should connect potential  buyers with the seller, to discuss prices, books to exchange, time of meeting etc. if needed
