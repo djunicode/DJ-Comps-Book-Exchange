@@ -31,4 +31,4 @@ Book Exchange Web-app for exchange and transfer of books between juniors and sen
 
 
 ----------
-- pip3 install -r requiremnts.txt
+- pip3 install -r requirements.txt
