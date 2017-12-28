@@ -1,0 +1,4 @@
+Django<=1.11.8
+channels>=1.1.8
+asgi-redis>=1.4.3
+psycopg2>=2.7.3.2
