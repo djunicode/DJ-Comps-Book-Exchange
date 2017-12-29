@@ -22,9 +22,9 @@ Book Exchange Web-app for exchange and transfer of books between juniors and sen
  4. psql
  5. CREATE DATABASE booke;
  6. CREATE USER johndory WITH PASSWORD 'abc@123';
- 7. ALTER ROLE myprojectuser SET client_encoding TO 'utf8';
- 8. ALTER ROLE myprojectuser SET default_transaction_isolation TO 'read committed';
- 9. ALTER ROLE myprojectuser SET timezone TO 'UTC';
+ 7. ALTER ROLE johndory SET client_encoding TO 'utf8';
+ 8. ALTER ROLE johndory SET default_transaction_isolation TO 'read committed';
+ 9. ALTER ROLE johndory SET timezone TO 'UTC';
  10. GRANT ALL PRIVILEGES ON DATABASE booke TO johndory;
  11. \q
  12. exit
