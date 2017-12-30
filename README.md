@@ -14,6 +14,7 @@ Book Exchange Web-app for exchange and transfer of books between juniors and sen
 - Special tabs: Tab containing books categorized according to semester, recently added etc.  
 
 ----------
+
 ### Instructions to setup postgres
 
  1. sudo apt-get update
@@ -28,7 +29,6 @@ Book Exchange Web-app for exchange and transfer of books between juniors and sen
  10. GRANT ALL PRIVILEGES ON DATABASE booke TO johndory;
  11. \q
  12. exit
-
 
 ----------
 - pip3 install -r requirements.txt
