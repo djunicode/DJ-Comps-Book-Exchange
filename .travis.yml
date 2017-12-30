@@ -1,0 +1,28 @@
+language: python
+
+python: 
+  - 3.6
+
+services:
+  - postgresql
+
+env:
+  - DJANGO=1.11.8 DB=postgresql
+
+before_install:
+  - export DJANGO_SETTINGS_MODULE=dj_comps.settings
+  - export PIP_USE_MIRRORS=true
+  - export BUILD_ON_TRAVIS=true
+
+install:
+  - pip install -r requirements.txt
+
+before_script:
+  - psql -c "CREATE DATABASE booke;" -U postgres
+  - psql -c "CREATE USER johndory WITH PASSWORD 'abc@123';" -U postgres
+  - python3 manage.py makemigrations
+  - python3 manage.py migrate
+
+script:
+  - flake8
+  - python3 manage.py test
