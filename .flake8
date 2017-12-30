@@ -1,4 +1,13 @@
 [flake8]
-max-line-length=120
-ignore=H301,H306,F401
-exclude = .git,*migrations*,manage.py
+
+max-line-length = 120
+
+ignore =
+  H301,
+  H306,
+  F401
+
+exclude = 
+  .git,
+  *migrations*,
+  manage.py
