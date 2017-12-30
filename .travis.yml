@@ -11,8 +11,6 @@ env:
 
 before_install:
   - export DJANGO_SETTINGS_MODULE=booke.settings
-  - export PIP_USE_MIRRORS=true
-  - export BUILD_ON_TRAVIS=true
 
 install:
   - pip install -r requirements.txt
