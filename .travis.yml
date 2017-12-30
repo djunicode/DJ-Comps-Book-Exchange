@@ -1,7 +1,7 @@
 language: python
 
 python: 
-  - 3.6
+  - 3.5
 
 services:
   - postgresql
@@ -10,7 +10,7 @@ env:
   - DJANGO=1.11.8 DB=postgresql
 
 before_install:
-  - export DJANGO_SETTINGS_MODULE=dj_comps.settings
+  - export DJANGO_SETTINGS_MODULE=booke.settings
   - export PIP_USE_MIRRORS=true
   - export BUILD_ON_TRAVIS=true
 
