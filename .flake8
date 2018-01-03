@@ -10,4 +10,5 @@ ignore =
 exclude = 
   .git,
   *migrations*,
-  manage.py
+  manage.py,
+  frontend
