@@ -1,5 +1,8 @@
+"""."""
 from django.apps import AppConfig
 
 
-class SignInConfig(AppConfig):
-    name = 'sign_in'
+
+class SignupConfig(AppConfig):
+	"""app name."""
+    name = 'signup'
