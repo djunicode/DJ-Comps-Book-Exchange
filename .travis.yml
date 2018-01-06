@@ -28,5 +28,5 @@ script:
   - python3 manage.py test
 
 notifications:
-  slack:
+  slack: djunicode:8S3ba6ntFbL1cgH6BISk3Q0k
     on_success: always
