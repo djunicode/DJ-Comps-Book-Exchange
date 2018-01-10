@@ -57,4 +57,4 @@ class Book_List(models.Model):
         return reverse('books:search')
 
     class Meta():
-        ordering = ["-date_created"]
+            ordering = ["-date_created"]
