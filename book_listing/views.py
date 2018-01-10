@@ -9,8 +9,8 @@ from django.urls import reverse_lazy
 
 def search(request):
     book_list = Book_List.objects.all()
-    book_filter = Book_ListFilter(request.GET, queryset=book_list)
-    return render(request, 'book_listing/search.html', {'filter': book_filter})
+    book_filtered = Book_ListFilter(request.GET, queryset=book_list)
+    return render(request, 'book_listing/search.html', {'book_filtered': book_filtered})
 
 
 class BookUpdateView(UpdateView):

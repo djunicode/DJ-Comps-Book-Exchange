@@ -21,18 +21,16 @@ class Book_List(models.Model):
             a, b = subject[row].split('#')
             sub = (a, b)
             SUBJECTS.append(sub)
-    SEMESTER = (
-        ("SEM 1", "SEM 1"),
-        ("SEM 2", "SEM 2"),
-        ("SEM 3", "SEM 3"),
-        ("SEM 4", "SEM 4"),
-        ("SEM 5", "SEM 5"),
-        ("SEM 6", "SEM 6"),
-        ("SEM 7", "SEM 7"),
-        ("SEM 8", "SEM 8")
-    )
+    SEMESTER = (('1', 'Semester 1'),
+                ('2', 'Semester 2'),
+                ('3', 'Semester 3'),
+                ('4', 'Semester 4'),
+                ('5', 'Semester 5'),
+                ('6', 'Semester 6'),
+                ('7', 'Semester 7'),
+                ('8', 'Semester 8'), )
 
-    PUBLICATIONS = (
+    PUBLICATION = (
         ('Techmax', 'Techmax'),
         ('Technical', 'Technical'),
         ('Reference Book', 'Reference Book'),
@@ -43,13 +41,13 @@ class Book_List(models.Model):
     sem = models.CharField(
         max_length=200,
         choices=SEMESTER,
-        default="SEM 1"
+        default="Semester 1"
     )
     subject = models.CharField(max_length=1000, choices=SUBJECTS, default="Maths 1")
     description = models.TextField(max_length=500)
     book_image = models.FileField(null=True, blank=True)
     author = models.CharField(max_length=50)
-    publication = models.CharField(max_length=20, choices=PUBLICATIONS, default="Tech-Max")
+    publication = models.CharField(max_length=20, choices=PUBLICATION, default="Tech-Max")
     date_created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
