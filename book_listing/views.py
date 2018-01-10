@@ -14,4 +14,3 @@ class IndexView(generic.ListView):
 class BookCreate(CreateView):
     model = BookList
     fields = ['author', 'title', 'description', 'book_image', 'publication', 'semester', 'subject']
-
