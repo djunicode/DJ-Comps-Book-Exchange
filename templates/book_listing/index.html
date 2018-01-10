@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+{% if all_books %}
+    {% for book in all_books %}
+        <div class="container">
+            <img src="{{ book.book_image.url }}" style="width:70px;">
+            <ul>
+                <li>Author : {{ book.author }}</li>
+                <li>Title : {{ book.title }}</li>
+                <li>Description : {{ book.description }}</li>
+                <li>Publication : {{ book.publication }}</li>
+                <li>Semester : {{ book.semester }}</li>
+                <li>Subject: {{ book.subject }}</li>
+            </ul>
+        </div>
+    {% endfor %}
+{% else %}
+    <div>
+        No Entries
+    </div>
+{% endif %}
+    <a href="{% url 'book_listing:book-add' %}">Add Book</a>
+
+</body>
+</html>
