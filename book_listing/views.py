@@ -6,7 +6,6 @@ from django.views.generic import UpdateView, DeleteView
 from django.urls import reverse_lazy
 # Create your views here.
 
-
 def search(request):
     book_list = Book_List.objects.all()
     book_filtered = Book_ListFilter(request.GET, queryset=book_list)
@@ -24,3 +23,5 @@ class BookDeleteView(DeleteView):
     model = Book_List
     template_name = "book_listing/delete_view.html"
     success_url = reverse_lazy("books:search")
+    book_filtered = BookFilter(request.GET, queryset=book_list)
+    return render(request, 'book_listing/search.html', {'book_filtered': book_filtered})
