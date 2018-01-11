@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^booklisting/', include("book_listing.urls", namespace="books"))
+    url(r'^booklisting/', include('book_listing.urls')),
 ]
 
 if settings.DEBUG:
