@@ -3,9 +3,7 @@ from .models import Book_List
 from .filters import BookFilter
 from django.urls import reverse_lazy
 from .forms import Book_ListForm
-from django.views.generic import (UpdateView,
-                                  DeleteView,
-                                  )
+from django.views.generic import (UpdateView, DeleteView)
 
 
 def search(request):
