@@ -8,7 +8,7 @@ from django.urls import reverse
 class Book_List(models.Model):
     uploaded_by = models.ForeignKey(User, default=True)
     title = models.CharField(max_length=50)
-    description = models.TextField(max_length=500)
+    description = models.TextField(max_length=500, blank=True)
     book_image = models.FileField(null=True, blank=True)
     author = models.CharField(max_length=250)
     SEMESTER = (('1', 'Semester 1'),
