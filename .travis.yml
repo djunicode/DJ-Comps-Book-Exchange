@@ -1,31 +1,53 @@
-language: python
+matrix:
+  include:
+  - language: python
 
-python: 
-  - 3.5
+    python: 
+      - 3.5
 
-services:
-  - postgresql
+    services:
+      - postgresql
 
-env:
-  - DJANGO=1.11.8 DB=postgresql
+    env:
+      - DJANGO=1.11.8 DB=postgresql
 
-before_install:
-  - export DJANGO_SETTINGS_MODULE=booke.settings
+    before_install:
+      - export DJANGO_SETTINGS_MODULE=booke.settings
 
-install:
-  - pip install -r requirements.txt
+    install:
+      - pip install -r requirements.txt
 
-before_script:
-  - psql -c "CREATE DATABASE booke;" -U postgres
-  - psql -c "CREATE USER johndory WITH CREATEUSER PASSWORD 'abc@123';" -U postgres
-  - psql -c "ALTER USER johndory CREATEDB;" -U postgres
-  - python3 manage.py makemigrations
-  - python3 manage.py migrate auth
-  - python3 manage.py migrate
+    before_script:
+      - psql -c "CREATE DATABASE booke;" -U postgres
+      - psql -c "CREATE USER johndory WITH CREATEUSER PASSWORD 'abc@123';" -U postgres
+      - psql -c "ALTER USER johndory CREATEDB;" -U postgres
+      - python3 manage.py makemigrations
+      - python3 manage.py migrate auth
+      - python3 manage.py migrate
 
-script:
-  - flake8
-  - python3 manage.py test
+    script:
+      - flake8
+      - python3 manage.py test
 
-notifications:
-    slack: djunicode:8S3ba6ntFbL1cgH6BISk3Q0k
+    notifications:
+        slack: djunicode:8S3ba6ntFbL1cgH6BISk3Q0k
+
+  
+  
+  - language: node_js
+    
+    node_js:
+      - "stable"
+    
+    cache:
+      directories:
+      - node_modules
+    
+    script:
+      - npm test
+      - npm run build
+    
+    notifications:
+        slack: djunicode:8S3ba6ntFbL1cgH6BISk3Q0k
+
+    
