@@ -43,6 +43,9 @@ matrix:
       directories:
       - node_modules
     
+    before_script:
+      - cd frontend
+    
     script:
       - npm test
       - npm run build
