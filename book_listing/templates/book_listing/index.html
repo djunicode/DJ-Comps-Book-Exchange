@@ -16,6 +16,12 @@
                 <li>Publication : {{ book.publication }}</li>
                 <li>Semester : {{ book.semester }}</li>
                 <li>Subject: {{ book.subject }}</li>
+                <a href="{% url 'book_listing:update' book.id %}">
+                    <button>Update Ad</button>
+                </a>
+                <a href="{% url 'book_listing:delete' book.id %}">
+                    <button>Delete Ad</button>
+                </a>
             </ul>
         </div>
     {% endfor %}
@@ -24,7 +30,9 @@
         No Entries
     </div>
 {% endif %}
-    <a href="{% url 'book_listing:book-add' %}">Add Book</a>
+    <a href="{% url 'book_listing:book-add' %}">
+        <button>Add Book</button>
+    </a>
 
 </body>
 </html>
