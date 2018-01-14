@@ -37,14 +37,18 @@ matrix:
   - language: node_js
     
     node_js:
-      - "stable"
+      - "8.0"
     
     cache:
       directories:
       - node_modules
     
+    install:
+      - npm install
+    
     before_script:
       - cd frontend
+      - export CI=false
     
     script:
       - npm test
