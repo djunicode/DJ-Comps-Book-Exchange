@@ -103,7 +103,7 @@ class AppBarWithMenu extends Component {
           defaultToggled={false}
           onToggle={this.handleChange}
           labelPosition="right"
-          style={{margin: 20}}
+          style={{margin: '0px'}}
         />
       </div>
     );
