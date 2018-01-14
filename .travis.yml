@@ -1,9 +1,12 @@
+language: python
+
 matrix:
+
   include:
   - language: python
 
     python: 
-      - 3.5
+      - "3.5"
 
     services:
       - postgresql
@@ -28,12 +31,7 @@ matrix:
     script:
       - flake8
       - python3 manage.py test
-
-    notifications:
-        slack: djunicode:8S3ba6ntFbL1cgH6BISk3Q0k
-
-  
-  
+   
   - language: node_js
     
     node_js:
@@ -55,8 +53,4 @@ matrix:
     script:
       - npm test
       - npm run build
-    
-    notifications:
-        slack: djunicode:8S3ba6ntFbL1cgH6BISk3Q0k
-
-    
+      
