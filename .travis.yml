@@ -46,8 +46,10 @@ matrix:
     install:
       - npm install
     
-    before_script:
+    before_install:
       - cd frontend
+    
+    before_script:
       - export CI=false
     
     script:
