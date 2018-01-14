@@ -46,4 +46,4 @@ class Book_List(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("books:search")
+        return reverse("book_listing:index")
