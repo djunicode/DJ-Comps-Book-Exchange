@@ -1,0 +1,12 @@
+<h2>{{ name.first_name }} {{ name.last_name }}</h2>
+
+<h3>{{ name.email }}</h3>
+
+<h3>{{ name.username }}</h3>
+
+<h3>Books uploaded</h3>
+<ul>
+  {% for books in  user%}
+      <li>{{ books.title }}-{{books.author}}</li>
+  {% endfor %}
+</ul>
