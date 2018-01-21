@@ -1,0 +1,32 @@
+<img src="{{ user.profile_pic.url }}" />
+
+<h2>{{ user }}</h2>
+<h3>{{ request.user }}</h3>
+
+<h3>{{ user.sap }}</h3>
+
+<form action="/logout/">
+  <div style="position: absolute; top: 10; right: 10;">
+    <button>Logout</button>
+  </div>
+</form>
+
+<form action="{% url 'books:search' %}">
+  <div style="position: absolute; top: 10; right: 90;">
+    <button>Search</button>
+  </div>
+</form>
+
+<form action="{% url 'books:book-add' %}">
+  <div style="position: absolute; top: 40; right: 90;">
+    <button>Add Book</button>
+  </div>
+</form>
+
+<h3>Books Uploaded:</h3><br>
+<ul>
+  {% for book in books %}
+      <img src="{{ book.book_image.url }}" /><br>
+      <li>{{ book.title }}-{{ book.author }}</li>
+  {% endfor %}
+</ul>
