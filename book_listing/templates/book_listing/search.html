@@ -2,6 +2,19 @@
   {{ book_filtered.form.as_p }}
   <button type="submit">Search</button>
 </form>
+
+<form action="/logout/">
+  <div style="position: absolute; top: 10; right: 10;">
+    <input type="submit" value="Logout" />
+  </div>
+</form>
+
+<form action="{% url 'sign_in:profile' %}">
+  <div style="position: absolute; top: 10; right: 80;">
+    <input type="submit" value="Profile" />
+  </div>
+</form>
+
 <ul>
 {% for book in book_filtered.qs %}
   <li>{{ book.title }} - {{ book.author }}</li>
