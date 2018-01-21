@@ -37,4 +37,10 @@ class IndexView(generic.ListView):
 
 class BookCreate(CreateView):
     model = Book_List
-    fields = ['uploaded_by', 'author', 'title', 'description', 'book_image', 'publication', 'semester', 'subject']
+    fields = ['author', 'title', 'description', 'book_image', 'publication', 'semester', 'subject']
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.uploaded_by = self.request.user
+        obj.save()
+        return super(BookCreate, self).form_valid(form)

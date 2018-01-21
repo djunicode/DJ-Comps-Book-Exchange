@@ -11,9 +11,15 @@
   </div>
 </form>
 
-<form action="/booklisting/search">
+<form action="{% url 'books:search' %}">
   <div style="position: absolute; top: 10; right: 90;">
     <button>Search</button>
+  </div>
+</form>
+
+<form action="{% url 'books:book-add' %}">
+  <div style="position: absolute; top: 40; right: 90;">
+    <button>Add Book</button>
   </div>
 </form>
 
