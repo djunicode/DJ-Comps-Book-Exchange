@@ -24,7 +24,8 @@ urlpatterns = [
     url(r'^booklisting/', include('book_listing.urls', namespace="books")),
     url(r'^sign_in/', include('sign_in.urls', namespace="sign_in")),
     url(r'^login/$', auth_views.login, name='login'),
-    url(r'^logout/$', auth_views.logout, name='logout')
+    url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^forum/', include('forum.urls', namespace="forum")),
 ]
 
 if settings.DEBUG:
