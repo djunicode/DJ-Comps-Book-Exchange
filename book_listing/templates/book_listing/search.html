@@ -14,9 +14,31 @@
     <input type="submit" value="Profile" />
   </div>
 </form>
-
-<ul>
-{% for book in book_filtered.qs %}
-  <li>{{ book.title }} - {{ book.author }}</li>
-{% endfor %}
-</ul>
+<a href="{% url 'books:book-add' %}">
+    <button>Add Book</button>
+</a>
+  {% if book_filtered.qs %}
+      {% for book in book_filtered.qs %}
+          <div class="container">
+              <img src="/media/{{ book.book_image }}" style="width:70px;">
+              <ul>
+                  <li>Author : {{ book.user }}</li>
+                  <li>Title : {{ book.title }}</li>
+                  <li>Description : {{ book.description }}</li>
+                  <li>Publication : {{ book.publication }}</li>
+                  <li>Semester : {{ book.semester }}</li>
+                  <li>Subject: {{ book.subject }}</li>
+                  <a href="{% url 'book_listing:update' book.id %}">
+                      <button>Update Ad</button>
+                  </a>
+                  <a href="{% url 'book_listing:delete' book.id %}">
+                      <button>Delete Ad</button>
+                  </a>
+              </ul>
+          </div>
+      {% endfor %}
+  {% else %}
+      <div>
+          No Entries
+      </div>
+  {% endif %}

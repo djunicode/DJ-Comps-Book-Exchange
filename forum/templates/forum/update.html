@@ -1,0 +1,10 @@
+<!doctype html>
+<title>Update</title>
+{% extends "forum/base.html" %}
+{% block forum %}
+<form  action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update">
+</form>
+{% endblock %}

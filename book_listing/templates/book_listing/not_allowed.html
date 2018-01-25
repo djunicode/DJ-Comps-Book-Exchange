@@ -1,0 +1,9 @@
+<!doctype html>
+<head>
+  <title>DELETE</title>
+</head>
+{% extends 'book_listing/base.html' %}
+{% block books %}
+  <p>{{ txt }}</p>
+  <a href="{% url 'book_listing:search' %}">Go Back</a>
+{% endblock %}
