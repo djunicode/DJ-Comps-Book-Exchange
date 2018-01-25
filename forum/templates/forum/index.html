@@ -4,12 +4,20 @@
   <title>Home</title>
 </head>
 {% block forum %}
+{% if user.is_authenticated %}
   <a href="{% url 'forum:create' %}"><button>POST</button></a>
+  <form action="/logout/">
+      <input type="submit" value="Logout" />
+  </form>
+
+  <form action="{% url 'sign_in:profile' %}">
+      <input type="submit" value="Profile" />
+  </form>
   {% if forum %}
     {% for i in forum %}
       <hr>
       <b>Title: {{ i.title }}</b><br>
-      <i><b>User:</b> {{ i.author }}</i><br>
+      <i><b>User:</b> {{ i.user }}</i><br>
       <i><b>Date:</b> {{ i.date_created }}</i>
       <p>{{ i.text }}</p><br>
       <a href="{% url 'forum:update' i.id %}"><button>Update</button></a>
@@ -20,7 +28,7 @@
           <div id="comment" class="container">
             {% for c in i.comments.all %}
                 <hr>
-                <i>User: {{ c.user }}</i>
+                <i>User: {{ c.user }}</i>0
                 <p>TEXT: {{ c.comment }}</p>
                 <a href="{% url 'forum:comment_delete' c.id %}">Delete</a>
                 <a href="{% url 'forum:comment_update' c.id %}">Update</a>
@@ -33,4 +41,7 @@
   {% else %}
     <b>NO POSTS!</b>
   {% endif %}
+{% else %}
+  <a href="/login/">Login to continue</a>
+{% endif %}
 {% endblock %}

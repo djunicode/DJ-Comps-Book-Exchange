@@ -1,0 +1,7 @@
+<!doctype html>
+<title>Delete</title>
+{% extends "forum/base.html" %}
+{% block forum %}
+<p>{{ txt }}</p>
+<a href="{% url 'forum:list' %}">Go Back</a>
+{% endblock %}

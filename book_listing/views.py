@@ -1,10 +1,12 @@
 from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Book_List
 from .filters import BookFilter
 from django.urls import reverse_lazy
 from .forms import Book_ListForm
 from django.views.generic import (UpdateView, DeleteView, CreateView)
-from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .mixins import FormUserNeededMixin, UserOwnerMixin
 
 
 def search(request):
@@ -13,34 +15,29 @@ def search(request):
     return render(request, 'book_listing/search.html', {'book_filtered': book_filtered})
 
 
-class BookUpdateView(UpdateView):
+class BookUpdateView(LoginRequiredMixin, UserOwnerMixin, UpdateView):
     queryset = Book_List.objects.all()
     form_class = Book_ListForm
     model = Book_List
     template_name = "book_listing/update_view.html"
 
 
-class BookDeleteView(DeleteView):
+class BookDeleteView(LoginRequiredMixin, UserOwnerMixin, DeleteView):
     model = Book_List
     context_object_name = "item"
     template_name = "book_listing/delete_view.html"
-    success_url = reverse_lazy("books:index")
+    success_url = reverse_lazy("books:search")
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.user == request.user:
+            self.object.delete()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return render(request, 'book_listing/not_allowed.html', {"txt": "You are not allowed to delete this."})
 
 
-class IndexView(generic.ListView):
-    template_name = 'book_listing/index.html'
-    context_object_name = 'all_books'
-
-    def get_queryset(self):
-        return Book_List.objects.all()
-
-
-class BookCreate(CreateView):
+class BookCreate(LoginRequiredMixin, FormUserNeededMixin, CreateView):
     model = Book_List
-    fields = ['author', 'title', 'description', 'book_image', 'publication', 'semester', 'subject']
-
-    def form_valid(self, form):
-        obj = form.save(commit=False)
-        obj.uploaded_by = self.request.user
-        obj.save()
-        return super(BookCreate, self).form_valid(form)
+    form_class = Book_ListForm
+    success_url = reverse_lazy("books:search")

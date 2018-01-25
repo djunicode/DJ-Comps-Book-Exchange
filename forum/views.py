@@ -1,8 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseRedirect
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .mixins import FormUserNeededMixin, UserOwnerMixin
 # Create your views here.
 
 
@@ -14,7 +17,7 @@ class PostList(ListView):
         return Post.objects.all()
 
 
-class PostCreate(CreateView):
+class PostCreate(LoginRequiredMixin, FormUserNeededMixin, CreateView):
     template_name = "forum/create.html"
     form_class = PostForm
     model = Post
@@ -23,7 +26,7 @@ class PostCreate(CreateView):
     context_object_name = 'forum'
 
 
-class PostUpdate(UpdateView):
+class PostUpdate(LoginRequiredMixin, UserOwnerMixin, UpdateView):
     queryset = Post.objects.all()
     form_class = PostForm
     model = Post
@@ -32,11 +35,20 @@ class PostUpdate(UpdateView):
     success_url = reverse_lazy("forum:list")
 
 
-class PostDelete(DeleteView):
+class PostDelete(LoginRequiredMixin, UserOwnerMixin, DeleteView):
     model = Post
     template_name = "forum/delete.html"
     success_url = reverse_lazy("forum:list")
     context_object_name = 'forum'
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.user == request.user:
+            self.object.delete()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return render(request, 'forum/not_allowed.html', {"txt": "You are not allowed to delete this."})
+
 
 
 def comment_to_post(request, pk):
@@ -53,13 +65,13 @@ def comment_to_post(request, pk):
     return render(request, 'forum/comment_create.html', {'form': form})
 
 
-class CommentDelete(DeleteView):
+class CommentDelete(LoginRequiredMixin, UserOwnerMixin, DeleteView):
     model = Comment
     template_name = "forum/comm_delete.html"
     success_url = reverse_lazy("forum:list")
 
 
-class CommentUpdate(UpdateView):
+class CommentUpdate(LoginRequiredMixin, UserOwnerMixin, UpdateView):
     queryset = Comment.objects.all()
     form_class = CommentForm
     model = Comment
