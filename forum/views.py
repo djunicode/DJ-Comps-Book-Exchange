@@ -50,7 +50,6 @@ class PostDelete(LoginRequiredMixin, UserOwnerMixin, DeleteView):
             return render(request, 'forum/not_allowed.html', {"txt": "You are not allowed to delete this."})
 
 
-
 def comment_to_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
