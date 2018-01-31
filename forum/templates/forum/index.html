@@ -20,18 +20,22 @@
       <i><b>User:</b> {{ i.user }}</i><br>
       <i><b>Date:</b> {{ i.date_created }}</i>
       <p>{{ i.text }}</p><br>
-      <a href="{% url 'forum:update' i.id %}"><button>Update</button></a>
-      <a href="{% url 'forum:delete' i.id %}"><button>Delete</button></a>
+      {% if i.user == user %}
+        <a href="{% url 'forum:update' i.id %}"><button>Update</button></a>
+        <a href="{% url 'forum:delete' i.id %}"><button>Delete</button></a>
+      {% endif %}
       <a href="{% url 'forum:comment' i.id %}"><button>Comment</button></a><br>
         <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#{{ i.id }}" >{{ i.comments.count }} Comments</button>
         <div id="{{ i.id }}" class="collapse">
           <div id="comment" class="container">
             {% for c in i.comments.all %}
                 <hr>
-                <i>User: {{ c.user }}</i>0
+                <i>User: {{ c.user }}</i>
                 <p>TEXT: {{ c.comment }}</p>
-                <a href="{% url 'forum:comment_delete' c.id %}">Delete</a>
-                <a href="{% url 'forum:comment_update' c.id %}">Update</a>
+                {% if c.user == user %}
+                  <a href="{% url 'forum:comment_delete' c.id %}">Delete</a>
+                  <a href="{% url 'forum:comment_update' c.id %}">Update</a>
+                {% endif %}
                 <hr>
             {% endfor %}
           </div>

@@ -56,6 +56,7 @@ def comment_to_post(request, pk):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
+            comment.user_id = request.user.id
             comment.post = post
             comment.save()
         return redirect('/forum/')
@@ -68,6 +69,14 @@ class CommentDelete(LoginRequiredMixin, UserOwnerMixin, DeleteView):
     model = Comment
     template_name = "forum/comm_delete.html"
     success_url = reverse_lazy("forum:list")
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.user == request.user:
+            self.object.delete()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return render(request, 'forum/not_allowed.html', {"txt": "You are not allowed to delete this."})
 
 
 class CommentUpdate(LoginRequiredMixin, UserOwnerMixin, UpdateView):
