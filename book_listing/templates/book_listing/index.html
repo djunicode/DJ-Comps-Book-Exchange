@@ -10,18 +10,20 @@
         <div class="container">
             <img src="{{ book.book_image.url }}" style="width:70px;">
             <ul>
-                <li>Author : {{ book.author }}</li>
+                <li>Author : {{ book.user }}</li>
                 <li>Title : {{ book.title }}</li>
                 <li>Description : {{ book.description }}</li>
                 <li>Publication : {{ book.publication }}</li>
                 <li>Semester : {{ book.semester }}</li>
                 <li>Subject: {{ book.subject }}</li>
-                <a href="{% url 'book_listing:update' book.id %}">
-                    <button>Update Ad</button>
-                </a>
-                <a href="{% url 'book_listing:delete' book.id %}">
-                    <button>Delete Ad</button>
-                </a>
+                {% if book.user == user %}
+                  <a href="{% url 'book_listing:update' book.id %}">
+                      <button>Update Ad</button>
+                  </a>
+                  <a href="{% url 'book_listing:delete' book.id %}">
+                      <button>Delete Ad</button>
+                  </a>
+                {% endif %}
             </ul>
         </div>
     {% endfor %}
@@ -30,7 +32,7 @@
         No Entries
     </div>
 {% endif %}
-    <a href="{% url 'book_listing:book-add' %}">
+    <a href="{% url 'books:book-add' %}">
         <button>Add Book</button>
     </a>
 

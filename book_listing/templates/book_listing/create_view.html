@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>BOOK CREATE</title>
+</head>
+{% extends 'book_listing/base.html' %}
+{% block books %}
+  <form  action="" method="post" enctype="multipart/form-data" >
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Upload">
+  </form>
+{% endblock %}

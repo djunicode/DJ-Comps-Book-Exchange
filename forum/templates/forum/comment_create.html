@@ -1,0 +1,10 @@
+<!doctype html>
+<title>Create</title>
+{% extends "forum/base.html" %}
+{% block forum %}
+<form  action="" method="post" enctype="multipart/form-data" >
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="POST">
+</form>
+{% endblock %}

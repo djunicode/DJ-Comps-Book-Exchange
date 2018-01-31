@@ -1,0 +1,51 @@
+{% extends "forum/base.html" %}
+<!doctype html>
+<head>
+  <title>Home</title>
+</head>
+{% block forum %}
+{% if user.is_authenticated %}
+  <a href="{% url 'forum:create' %}"><button>POST</button></a>
+  <form action="/logout/">
+      <input type="submit" value="Logout" />
+  </form>
+
+  <form action="{% url 'sign_in:profile' %}">
+      <input type="submit" value="Profile" />
+  </form>
+  {% if forum %}
+    {% for i in forum %}
+      <hr>
+      <b>Title: {{ i.title }}</b><br>
+      <i><b>User:</b> {{ i.user }}</i><br>
+      <i><b>Date:</b> {{ i.date_created }}</i>
+      <p>{{ i.text }}</p><br>
+      {% if i.user == user %}
+        <a href="{% url 'forum:update' i.id %}"><button>Update</button></a>
+        <a href="{% url 'forum:delete' i.id %}"><button>Delete</button></a>
+      {% endif %}
+      <a href="{% url 'forum:comment' i.id %}"><button>Comment</button></a><br>
+        <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#{{ i.id }}" >{{ i.comments.count }} Comments</button>
+        <div id="{{ i.id }}" class="collapse">
+          <div id="comment" class="container">
+            {% for c in i.comments.all %}
+                <hr>
+                <i>User: {{ c.user }}</i>
+                <p>TEXT: {{ c.comment }}</p>
+                {% if c.user == user %}
+                  <a href="{% url 'forum:comment_delete' c.id %}">Delete</a>
+                  <a href="{% url 'forum:comment_update' c.id %}">Update</a>
+                {% endif %}
+                <hr>
+            {% endfor %}
+          </div>
+        </div>
+      <hr>
+    {% endfor %}
+  {% else %}
+    <b>NO POSTS!</b>
+  {% endif %}
+{% else %}
+  <a href="/login/">Login to continue</a>
+{% endif %}
+{% endblock %}

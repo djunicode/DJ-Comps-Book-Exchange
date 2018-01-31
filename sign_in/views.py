@@ -3,6 +3,7 @@ from .forms import Register, ProfileInfo
 from django.contrib.auth import authenticate, login
 from .models import Profile
 from book_listing.models import Book_List
+from forum.models import Post
 
 
 def register(request):
@@ -36,5 +37,6 @@ def register(request):
 
 def profile(request):
     user = Profile.objects.get(user=request.user)
-    books = Book_List.objects.filter(uploaded_by=request.user)
-    return render(request, 'sign_in/profile.html', {'user': user, 'books': books})
+    books = Book_List.objects.filter(user=request.user)
+    post = Post.objects.filter(user=request.user)
+    return render(request, 'sign_in/profile.html', {'user': user, 'books': books, 'forum': post})
