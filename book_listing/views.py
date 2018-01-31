@@ -7,6 +7,8 @@ from .forms import Book_ListForm
 from django.views.generic import (UpdateView, DeleteView, CreateView)
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .mixins import FormUserNeededMixin, UserOwnerMixin
+from sign_in.models import Profile
+from django.contrib.auth.models import User
 
 
 def search(request):
@@ -41,3 +43,11 @@ class BookCreate(LoginRequiredMixin, FormUserNeededMixin, CreateView):
     model = Book_List
     form_class = Book_ListForm
     success_url = reverse_lazy("books:search")
+
+
+def details(request, book_id):
+    book_details = Book_List.objects.filter(id=book_id)
+    user_all = Profile.objects.all()
+    user_main = User.objects.all()
+    return render(request, 'book_listing/details.html', {'book_details': book_details,
+                                                         'user_all': user_all, 'user_main': user_main})
