@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Details</title>
+</head>
+<body>
+{% for book in book_details %}
+{% for user in user_all %}
+
+{% if user.user == book.user %}
+<img src="/media/{{ user.profile_pic }}"><br>
+User - {{user.user}}<br>
+First Name - {{user.first_name}}<br>
+Last Name - {{user.last_name}}<br>
+Sap - {{user.sap}}<br>
+{% endif %}
+
+{% endfor %}
+{% endfor %}
+</body>
+</html>

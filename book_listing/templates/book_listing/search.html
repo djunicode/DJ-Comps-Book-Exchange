@@ -36,6 +36,10 @@
                         <button>Delete Ad</button>
                     </a>
                   {% endif %}
+                  <a href="{% url 'book_listing:details' book.id %}">
+                      <button>View </button>
+                      <button>View Details</button>
+                  </a>
               </ul>
           </div>
       {% endfor %}
