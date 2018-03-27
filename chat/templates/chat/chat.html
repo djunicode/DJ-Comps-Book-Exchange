@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% extends 'forum/base.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+</head>
+{% block forum %}
+    <meta http-equiv="refresh" content="7" />
+    <h1>{{ username }}</h1><hr>
+
+    {% for item in messagessend %}
+     {% if user is sender %}
+     <div style="float:right">{{ item.message }}</div><br>
+      {% endif %}
+      {% if username is sender %}
+        {{ item.message }}
+      {% endif %}
+    {% endfor %}
+
+    <!-- {% for item in mess %}
+      {{ item.message }}<br>
+    {% endfor %} -->
+    <br>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Type message" name="message_cont">
+        <button type="submit">Send</button>
+    </form>
+{% endblock %}

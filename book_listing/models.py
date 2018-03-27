@@ -9,9 +9,10 @@ from django.utils import timezone
 class Book_List(models.Model):
     user = models.ForeignKey(User)
     title = models.CharField(max_length=50)
-    description = models.TextField(max_length=500, blank=True)
+    description = models.TextField(max_length=1000, blank=True)
     book_image = models.FileField(null=True, blank=True)
     date_created = models.DateTimeField(default=timezone.now)
+    author = models.CharField(max_length=100, blank=True)
     SEMESTER = (('1', 'Semester 1'),
                 ('2', 'Semester 2'),
                 ('3', 'Semester 3'),

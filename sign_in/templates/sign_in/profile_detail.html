@@ -1,0 +1,444 @@
+{% load staticfiles %}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Booke</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Book exchange app" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel='stylesheet' type='text/css' />
+    <link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css' />
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'/>
+    <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
+    <script src="{% static 'js/simpleCart.min.js' %}"> </script>
+    <script src="{% static 'js/amcharts.js' %}"></script>
+    <script src="{% static 'js/serial.js' %}"></script>
+    <script src="{% static 'js/light.js' %}"></script>
+    <script src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
+    <style>
+    .footer{
+        padding-top: 20px;
+    }
+
+    .card{
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+    }
+
+    .title-style-1{
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 35px;
+        margin-bottom: 50px;
+    }
+
+    .title-under{
+        background: #fff;
+        margin: 15px 0;
+        text-align: left;
+    }
+
+    .title-under: after{
+        background: #fff;
+        margin: 0;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="left-content">
+            <div class="inner-content">
+                <div class="header_bg">
+                    <div class="header">
+                        <div class="head-t">
+                            <div class="logo">
+                                <a href="#"><img src="/media/images/UnicodeLogo.png" class="img-responsive" alt="Unicode" style="width: 220px; height: 45px;"> </a>
+                            </div>
+                            <!-- start header_right
+                            <div class="header_right">
+                                <div class="rgt-bottom">
+                                    <div class="log">
+                                        <div class="login">
+                                            <div id="loginContainer"><a id="loginButton" class=""><span>Login</span></a>
+                                                <div id="loginBox" style="display: none;">
+                                                    <form id="loginForm">
+                                                        <fieldset id="body">
+                                                            <fieldset>
+                                                                <label for="email">Email Address</label>
+                                                                <input type="text" name="email" id="email">
+                                                            </fieldset>
+                                                            <fieldset>
+                                                                <label for="password">Password</label>
+                                                                <input type="password" name="password" id="password">
+                                                            </fieldset>
+                                                            <input type="submit" id="login" value="Sign in">
+                                                            <label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
+                                                        </fieldset>
+                                                        <span><a href="#">Forgot your password?</a></span>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="reg">
+                                        <a href="register.html">REGISTER</a>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                </div>
+                                <div class="search">
+                                    <form>
+                                        <input type="text" value="" placeholder="search...">
+                                        <input type="submit" value="">
+                                    </form>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>-->
+                            <div class="clearfix"> </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- //header-ends -->
+
+                <!--content-->
+                <div class="content">
+                    <div class="women_main">
+                        <!-- start main content -->
+                        <div class="grids">
+
+
+
+
+
+
+
+
+
+        <div class="container-fluid">
+           <div class="row">
+             <a href="{% url 'book_listing:search' %}" class="nav nav-link">Go Back</a>
+             <h2 class="title-style-1">
+
+                    <div class="alert alert-warning" role="alert">
+  {{ u }}
+</div>
+                <span class="title-under"></span></h2><br/>
+               <div class="col-md-4">
+
+               <img src="/media/{{ u.profile_pic }}" alt="xyz" class="card" style="border:1px solid lightgray;height: 270px; width: 270px;margin-bottom: 20px;">
+               </div>
+               <div class="col-md-7 card" style="margin-top: 0px;">
+
+<br/>
+<ul class="list-group">
+  <li class="list-group-item"><p><b>Username:</b>&nbsp;{{ u.user.username }}</p></li>
+  <li class="list-group-item"><p><b>Email:</b>&nbsp;<a href="mailto:{{ u.user.email }}" class="btn btn-link" style="font-size: 17px">{{ u.user.email }}</a></p></li>
+  <li class="list-group-item"><p><b>SAP:</b>&nbsp;{{ u.sap }}</p></li>
+</ul>
+
+               </div>
+             </div>
+        </div>
+
+        <hr style="color: #b52e31;background-color: #b52e31;height: 2px;">
+
+
+<button type="button" class="btn btn-primary">
+  BOOKS UPLOADED <span class="badge badge-light"></span>
+  <span class="sr-only">unread messages</span>
+</button>
+
+        {% for book in books %}
+        <!-- <div class="grids_of_4">
+          <div class="grid1_of_4" style="box-shadow: 5px 5px #cdd8d3">
+                <div class="content_box"><a href="{% url 'book_listing:details' book.id %}">
+                           <img src="/media/{{ book.book_image }}" class="img-responsive" alt="" style="height: 300px;width: 250px;">
+                         </a>
+                    <div class="container" style="text-align: left"><h4><a href="{% url 'book_listing:details' book.id %}">{{ book.title }}</a></h4>
+                   <p style="text-align: left"><b>Author: </b>{{ book.author }}<br/>
+                   <b>Subject: </b>{{ book.subject }}<br/>
+                   </div>
+                     <div class="grid_1 simpleCart_shelfItem">
+                    <br/>
+                    <div class="item_add"><span class="item_price"><a href="{% url 'book_listing:details' book.id %}">  Details</a></span>&nbsp;<span class="item_price"><a href="#">Contact</a></span></div>
+                     </div>
+                   </div>
+           </div>
+             </div> -->
+               <div class="grids_of_4">
+           <div class="content_box" style="box-shadow: 5px 5px #cdd8d3; width: 300px;height: 530px;float: left; margin: 10px;">
+             <a href="{% url 'book_listing:details' book.id %}">
+                  <img src="/media/{{ book.book_image }}" class="img-responsive" alt="" style="height: 300px;width: 255px;">
+                 </a>
+               <div class="container" style="text-align: left">
+                 <div><h4 style="width:255px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; "><a href="{% url 'book_listing:details' book.id %}"> {{ book.title }}</a></h4></div>
+                     <div style="width:255px; height:80px">  <p style="text-align: left"><b>Author: </b>{{ book.author }}<br/>
+                       <b>Subject: </b>{{ book.subject }}<br/>
+                     </p></>
+
+               </div>
+              <div class="simpleCart_shelfItem">
+               <br/>
+              </div>
+             </div>
+           </div>
+         </div>
+           {% endfor %}
+            <!--<div class="grid1_of_4" style="box-shadow: 5px 5px #cdd8d3">
+                <div class="content_box"><a href="details.html">
+                           <img src="images/bee.jpg" class="img-responsive" alt="" style="height: 300px;width: 250px;">
+                         </a>
+                    <div class="container" style="text-align: left"><h4><a href="details.html"> BEE</a></h4>
+                   <p style="text-align: left"><b>Author: </b>G. V. Kumbojkar<br/>
+                   <b>Subject: </b>Maths<br/>
+                   </p>
+                       <p>Cover is slightly torn</p></div>
+                     <div class="grid_1 simpleCart_shelfItem">
+                    <br/>
+                    <div class="item_add"><span class="item_price"><a href="details.html">  Details</a></span>&nbsp;<span class="item_price"><a href="#">Contact</a></span></div>
+                     </div>
+                   </div>
+           </div>
+            <div class="grid1_of_4" style="box-shadow: 5px 5px #cdd8d3">
+                <div class="content_box"><a href="details.html">
+                           <img src="images/ed.jpg" class="img-responsive" alt="" style="height: 300px;width: 250px;">
+                         </a>
+                    <div class="container" style="text-align: left"><h4><a href="details.html">Engineering Drawing</a></h4>
+                   <p style="text-align: left"><b>Author: </b>G. V. Kumbojkar<br/>
+                   <b>Subject: </b>Maths<br/>
+                   </p>
+                       <p>Cover is slightly torn</p></div>
+                     <div class="grid_1 simpleCart_shelfItem">
+                    <br/>
+                    <div class="item_add"><span class="item_price"><a href="details.html">  Details</a></span>&nbsp;<span class="item_price"><a href="#">Contact</a></span></div>
+                     </div>
+                   </div>
+           </div>-->
+
+
+            <div class="clearfix"></div>
+
+
+        <hr style="color: #b52e31;background-color: #b52e31;height: 2px;">
+
+
+
+<button type="button" class="btn btn-primary">
+  POSTS UPLOADED <span class="badge badge-light"></span>
+  <!--<span class="sr-only">unread messages</span>-->
+
+</button>
+<ul><br>
+  {% for posts in forum %}
+    <li class="list-group-item"><a style="font-size: 20px" href="{% url 'forum:list' %}" class="btn btn-link">{{ posts.title }}</a></li>
+  {% endfor %}
+</ul>
+
+
+
+
+
+
+
+
+
+                        <hr style="color: #b52e31;background-color: #b52e31;height: 2px;">
+                        <!-- end content -->
+
+                        <div class="footer">
+                            <div class="col-md-6 myac" style="text-align: center">
+                                <h4>MY ACCOUNT</h4>
+                                <li><a href="register.html">Profile</a></li>
+                                <li><a href="checkout.html">My Books</a></li>
+                                <li><a href="checkout.html">Messages</a></li>
+                                <li><a href="details.html">Forum</a></li>
+                            </div>
+                            <div class="col-md-6 our-st" style="text-align: center">
+                                <div class="our-left">
+                                    <h4>Address</h4>
+                                </div>
+
+                                <li><i class="add"></i>
+                                    DJ Sanghvi College of Engineering<br/>
+                                    Vile Parle (W), Mumbai.
+                                </li>
+                                <li><i class="phone"> </i>+91-22-42335000</li>
+                                <li><a href="mailto:info@djsce.ac.in"><i class="mail"> </i>info@djsce.ac.in</a></li>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-menu">
+            <header class="logo1">
+                <a href="#" class="sidebar-icon"><span class="fa fa-bars"></span> </a>
+            </header>
+            <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
+            <div class="menu">
+                <ul id="menu" >
+                  <li><a href="{% url 'index' %}"><i class="fa fa-home"></i> <span>Home</span></a></li>
+                  <li><a href="{% url 'books:search' %}"><i class="fa fa-book"></i><span>Book Inventory</span></a></li>
+                  <li><a href="{% url 'forum:list' %}"><i class="fa fa-list-ul"></i><span>Forum</span></a></li>
+                  <li><a href="{% url 'chat:user-list' %}"><i class="fa fa-comments"></i> <span>Messages</span></a></li>
+                  <li><a href="{% url 'sign_in:profile' %}"><i class="fa fa-user"></i> <span>My Profile</span></a></li>
+                  <li><a href="/logout/"><i class="fa fa-power-off"></i><span>Log Out</span></a></li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <script>
+    var toggle = true;
+
+    $(".sidebar-icon").click(function() {
+        if (toggle)
+        {
+            $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+            $("#menu span").css({"position":"absolute"});
+        }
+        else
+        {
+            $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+            setTimeout(function() {
+                $("#menu span").css({"position":"relative"});
+            }, 400);
+        }
+
+        toggle = !toggle;
+    });
+</script>
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
+<script src="js/jquery.fn.gantt.js"></script>
+<script>
+
+$(function() {
+
+    "use strict";
+
+    $(".gantt").gantt({
+        source: [{
+            name: "Sprint 0",
+            desc: "Analysis",
+            values: [{
+                from: "/Date(1320192000000)/",
+                to: "/Date(1322401600000)/",
+                label: "Requirement Gathering",
+                customClass: "ganttRed"
+            }]
+        },{
+            name: " ",
+            desc: "Scoping",
+            values: [{
+                from: "/Date(1322611200000)/",
+                to: "/Date(1323302400000)/",
+                label: "Scoping",
+                customClass: "ganttRed"
+            }]
+        },{
+            name: "Sprint 1",
+            desc: "Development",
+            values: [{
+                from: "/Date(1323802400000)/",
+                to: "/Date(1325685200000)/",
+                label: "Development",
+                customClass: "ganttGreen"
+            }]
+        },{
+            name: " ",
+            desc: "Showcasing",
+            values: [{
+                from: "/Date(1325685200000)/",
+                to: "/Date(1325695200000)/",
+                label: "Showcasing",
+                customClass: "ganttBlue"
+            }]
+        },{
+            name: "Sprint 2",
+            desc: "Development",
+            values: [{
+                from: "/Date(1326785200000)/",
+                to: "/Date(1325785200000)/",
+                label: "Development",
+                customClass: "ganttGreen"
+            }]
+        },{
+            name: " ",
+            desc: "Showcasing",
+            values: [{
+                from: "/Date(1328785200000)/",
+                to: "/Date(1328905200000)/",
+                label: "Showcasing",
+                customClass: "ganttBlue"
+            }]
+        },{
+            name: "Release Stage",
+            desc: "Training",
+            values: [{
+                from: "/Date(1330011200000)/",
+                to: "/Date(1336611200000)/",
+                label: "Training",
+                customClass: "ganttOrange"
+            }]
+        },{
+            name: " ",
+            desc: "Deployment",
+            values: [{
+                from: "/Date(1336611200000)/",
+                to: "/Date(1338711200000)/",
+                label: "Deployment",
+                customClass: "ganttOrange"
+            }]
+        },{
+            name: " ",
+            desc: "Warranty Period",
+            values: [{
+                from: "/Date(1336611200000)/",
+                to: "/Date(1349711200000)/",
+                label: "Warranty Period",
+                customClass: "ganttOrange"
+            }]
+        }],
+        navigate: "scroll",
+        scale: "weeks",
+        maxScale: "months",
+        minScale: "days",
+        itemsPerPage: 10,
+        onItemClick: function(data) {
+            alert("Item clicked - show some details");
+        },
+        onAddClick: function(dt, rowId) {
+            alert("Empty space clicked - add an item!");
+        },
+        onRender: function() {
+            if (window.console && typeof console.log === "function") {
+                console.log("chart rendered");
+            }
+        }
+    });
+
+    $(".gantt").popover({
+        selector: ".bar",
+        title: "I'm a popover",
+        content: "And I'm the content of said popover.",
+        trigger: "hover"
+    });
+
+    prettyPrint();
+
+});
+
+</script>
+<script src="js/menu_jquery.js"></script>
+</body>
+</html>

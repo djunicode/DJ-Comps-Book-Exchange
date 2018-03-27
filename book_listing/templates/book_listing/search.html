@@ -1,50 +1,146 @@
-<form method="get">
-  {{ book_filtered.form.as_p }}
-  <button type="submit">Search</button>
-</form>
+<!DOCTYPE html>
+{% extends 'book_listing/base.html' %}
+{% block books %}
+<style>
+  label {
+    font-family: 'Montserrat', sans-serif;
+    color: #B52E31;
+    font-weight: 400;
+  }
+</style>
 
-<form action="/logout/">
-  <div style="position: absolute; top: 10; right: 10;">
-    <input type="submit" value="Logout" />
-  </div>
-</form>
+<i class="fa fa-filter" style="margin-left: 10px; color: #B52E31;" aria-hidden="true"></i>
+<button type="button" class="btn btn-link" style="font-family: 'Montserrat', sans-serif; color: #B52E31;font-weight: 600;" data-toggle="collapse" data-target="#dropFilter" >Filter</button>
+<a href="{% url 'book_listing:search' %}" class="btn btn-link">Clear Filters</a>
+<div id="dropFilter" class="collapse" style="margin: 0 auto; width: 60%">
+  <form method="get">
+    {{ book_filtered.form.as_p }}
+    <button type="submit" class="btn btn-danger">Search</button>
+  </form>
+</div><br>
+{% if user.is_authenticated %}
+<div class="buttons" style="margin: 10px 10px 10px 10px">
+  <a href="{% url 'books:book-add' %}">
+      <button class="btn btn-danger">Add Book</button>
+  </a>
+  <a style="margin-left: 75%" href="{% url 'chat:user-list' %}">
+      <button class="btn btn-danger">Chat</button>
+  </a><br>
+</div>
 
-<form action="{% url 'sign_in:profile' %}">
-  <div style="position: absolute; top: 10; right: 80;">
-    <input type="submit" value="Profile" />
-  </div>
-</form>
-<a href="{% url 'books:book-add' %}">
-    <button>Add Book</button>
-</a>
+{% else %}
+<a href="/login/"><button>Add Book</button></a><br>
+{% endif %}
   {% if book_filtered.qs %}
       {% for book in book_filtered.qs %}
-          <div class="container">
-              <img src="/media/{{ book.book_image }}" style="width:70px;">
-              <ul>
-                  <li>Author : {{ book.user }}</li>
-                  <li>Title : {{ book.title }}</li>
-                  <li>Description : {{ book.description }}</li>
-                  <li>Publication : {{ book.publication }}</li>
-                  <li>Semester : {{ book.semester }}</li>
-                  <li>Subject: {{ book.subject }}</li>
-                  {% if book.user == user %}
-                    <a href="{% url 'book_listing:update' book.id %}">
-                        <button>Update Ad</button>
-                    </a>
-                    <a href="{% url 'book_listing:delete' book.id %}">
-                        <button>Delete Ad</button>
-                    </a>
-                  {% endif %}
+      <!-- <div class="page-container">
+      <div class="grids_of_4">
+        <div class="grid1_of_4" style="box-shadow: 5px 5px #cdd8d3">
+          <div class="content_box"><a href="details.html">
+                 <img src="/media/{{ book.book_image }}" class="img-responsive" alt="" style="height: 300px;width: 255px;">
+                </a>
+              <div class="container" style="text-align: left"><h4><a href="details.html"> {{ book.title }}</a></h4>
+                      <p style="text-align: left"><b>Author: </b>G. V. Kumbojkar<br/>
+                      <b>Subject: </b>{{ book.subject }}<br/>
+                      </p>
+                          <p>Cover is slightly torn</p></div>
+             <div class="grid_1 simpleCart_shelfItem">
+              <br/>
+            <div class="item_add"><span class="item_price"><a href="details.html">  Details</a></span>&nbsp;<span class="item_price"><a href="#">Contact</a></span></div>
+             </div>
+            </div>
+              </div>
+
+        <div class="clearfix"></div>
+      </div> -->
+    <!-- </div> -->
+
+<!--
+        <div class="content_box"><a href="{% url 'book_listing:details' book.id %}">
+<div class="col-md-8">
+
+               <img src="/media/{{ book.book_image }}" class="img-responsive" alt="" style="height: 300px;width: 250px;">
+              </a>
+            </div>
+            <div class="container-fluid" style="text-align: left">
+              <div class="col-md-8">
+                <h4><a href="{% url 'book_listing:details' book.id %}"> {{ book.title }}</a></h4>
+                    <p style="text-align: left">
+                    <b>Subject: </b>{{ book.subject }}<br/>
+                    </p>
+            </div>
+           <div class="grid_1 simpleCart_shelfItem">
+          <div class="item_add">
+            <span class="item_price">
+              <a href="{% url 'book_listing:details' book.id %}" style="border-radius:8px;">View  Details</a>
+            </span>&nbsp;<span class="item_price">
+              <a href="#" style="border-radius:8px;">Contact</a></span>
+
+            </div> -->
+            <!-- test -->
+            <!-- test -->
+
+                <div class="content_box" style="box-shadow: 5px 5px #cdd8d3; width: 300px;height: 530px;float: left; margin: 10px;">
+                  {% if user.is_authenticated %}
                   <a href="{% url 'book_listing:details' book.id %}">
-                      <button>View </button>
-                      <button>View Details</button>
-                  </a>
-              </ul>
-          </div>
+                       <img src="/media/{{ book.book_image }}" class="img-responsive" alt="" style="margin: 0 auto; height: 300px;width: 255px;">
+                      </a>
+                  {% else %}
+                  <a href="/login/">
+                       <img src="/media/{{ book.book_image }}" class="img-responsive" alt="" style="margin: 0 auto; height: 300px;width: 255px;">
+                      </a>
+                    {% endif %}
+                    <div class="container" style="text-align: left">
+                      <div><h4 style="width:255px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; "><a href="{% url 'book_listing:details' book.id %}"> {{ book.title }}</a></h4></div>
+                          <div style="width:255px; height:80px">  <p style="text-align: left"><b>Author: </b>{{ book.author }}<br/>
+                            <b>Subject: </b>{{ book.subject }}<br/>
+                          </p></>
+
+                    </div>
+                   <div class="simpleCart_shelfItem">
+                    <br/>
+                  <div class="item_add" style="width:255px;">
+                    {% if user.is_authenticated %}
+                    <span class="item_price">
+                      <a href="{% url 'book_listing:details' book.id %}">  Details</a>
+                    </span>&nbsp;
+                    <span class="item_price"><a href="mailto:{{ book.user.email }}">Contact</a></span>
+                  <br><br>
+                  {% else %}
+                  <span class="item_price">
+                    <a href="/login/">  Details</a>
+                  </span>&nbsp;
+                  <span class="item_price"><a href="/login/">Contact</a></span>
+                <br><br>
+                  {% endif %}
+                  {% if book.user == user %}
+                    <span class="item_price"><a href="{% url 'book_listing:update' book.id %}">Update</a></span>&nbsp;
+                    <span class="item_price"><a href="{% url 'book_listing:delete' book.id %}">Delete</a></span>
+                  {% endif %}
+                  </div>
+                   </div>
+                  </div>
+                </div>
+
+            <!-- {% if book.user == user %}
+            <a href="{% url 'book_listing:update' book.id %}">
+              <button>Update Ad</button>
+            </a>
+            <a href="{% url 'book_listing:delete' book.id %}">
+            <button>Delete Ad</button>
+          </a>
+      {% endif %} -->
+
+
+
+
+
       {% endfor %}
+
   {% else %}
       <div>
           No Entries
       </div>
   {% endif %}
+  <div style="clear: both;"/>
+{% endblock %}

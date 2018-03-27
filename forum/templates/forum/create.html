@@ -2,9 +2,44 @@
 <title>Create</title>
 {% extends "forum/base.html" %}
 {% block forum %}
-<form  action="" method="post" enctype="multipart/form-data" >
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="POST">
-</form>
+<style>
+  label {
+    font-family: 'Montserrat', sans-serif;
+    color: #B52E31;
+    font-weight: 400;
+  }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+  }
+  .newPost {
+    margin: 0 auto;
+    width: 45%;
+  }
+  #id_title {
+    border-radius: 5px;
+    border: 2px solid #ba2424;
+  }
+  #id_title:hover {
+    border-radius: 6px;
+    border: 2px solid #aaaaaa;
+  }
+  textarea {
+    border-radius: 5px;
+    border: 2px solid #ba2424;
+  }
+  textarea:hover {
+    border-radius: 6px;
+    border: 2px solid #aaaaaa;
+  }
+</style>
+<a href="{% url 'forum:list' %}" class="nav nav-link">Go Back</a>
+<div class="newPost">
+  <form  action="" method="post" enctype="multipart/form-data" >
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="POST" class="btn btn-danger">
+  </form>
+</div>
+
 {% endblock %}

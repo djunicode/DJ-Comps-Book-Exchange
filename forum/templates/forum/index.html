@@ -3,49 +3,93 @@
 <head>
   <title>Home</title>
 </head>
-{% block forum %}
-{% if user.is_authenticated %}
-  <a href="{% url 'forum:create' %}"><button>POST</button></a>
-  <form action="/logout/">
-      <input type="submit" value="Logout" />
-  </form>
 
-  <form action="{% url 'sign_in:profile' %}">
-      <input type="submit" value="Profile" />
-  </form>
-  {% if forum %}
-    {% for i in forum %}
-      <hr>
-      <b>Title: {{ i.title }}</b><br>
-      <i><b>User:</b> {{ i.user }}</i><br>
-      <i><b>Date:</b> {{ i.date_created }}</i>
-      <p>{{ i.text }}</p><br>
+{% block forum %}
+
+<style>
+.hoverkaro:hover{
+   box-shadow: 5px 5px 6px #e2e2e2;
+
+}
+label {
+  display: none;
+}
+</style>
+<form method="get" style="margin: 0 auto; width: 40%">
+  {{ post_filtered.form.as_p }}
+  <button type="submit" class="btn btn-danger">Search</button>
+  <a class="btn btn-link" href="{% url 'forum:list' %}">Clear Search</a>
+</form>
+{% if user.is_authenticated %}
+  <a href="{% url 'forum:create' %}"><button class="btn btn-danger">Add POST</button></a>
+  {% else %}
+  <a href="/login/"><button class="btn btn-danger">POST</button></a><br>
+{% endif %}
+<hr style="color: #b52e31;background-color: #b52e31;height: 2px;"/>
+  {% if post_filtered.qs %}
+    {% for i in post_filtered.qs %}
+  <div class="hoverkaro" style="background-color: #f8f8ff; margin: 40px 45px 40px 45px">
+      <div class="row ">
+        <div class="col-md-12">
+          <div class="card flex-md-row mb-4 box-shadow h-md-250">
+            <div class="card-body d-flex flex-column align-items-start">
+      <!-- <b>Title: {{ i.title }}</b><br> -->
+      <!-- <div style="background-color: black; color: white; border: 5px s`olid black"> -->
+        <!-- <img src="/media/{{ prof.profile_pic }}" alt="Avatar" style="width:50px;border-radius: 50%;float:left;margin-right:10px;"> -->
+      <h3 class="mb-0">
+      {{ i.title }}
+    </h3>
+      <!-- <i><b>User:</b> {{ i.user }}</i><br>
+      <i><b>Date:</b> {{ i.date_created }}</i> -->
+    <div>
+      <p style="font-size: 14px; margin-top:-5px"><i><b>{{ i.date_created }} by <a href=#>{{ i.user }}</a></b></i></p>
+      <hr style="margin-top: -5px; background-color:lightgrey; height: 1px;"/>
       {% if i.user == user %}
-        <a href="{% url 'forum:update' i.id %}"><button>Update</button></a>
-        <a href="{% url 'forum:delete' i.id %}"><button>Delete</button></a>
+      <div style="position: absolute; right:35px; top: 25px;">
+        <a href="{% url 'forum:update' i.id %}"><button class="btn btn-danger">Update</button></a>&nbsp&nbsp&nbsp
+        <a href="{% url 'forum:delete' i.id %}"><button class="btn btn-danger">Delete</button></a>
+      </div>
       {% endif %}
-      <a href="{% url 'forum:comment' i.id %}"><button>Comment</button></a><br>
-        <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#{{ i.id }}" >{{ i.comments.count }} Comments</button>
-        <div id="{{ i.id }}" class="collapse">
+
+    </div>
+
+      <!-- <p>{{ i.text }}</p><br> -->
+      <p class="card-text mb-auto">{{ i.text }}</p><br>
+
+        <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#{{ i.id }}" style="float:left;" >{{ i.comments.count }} Comments</button>
+        {% if user.is_authenticated %}
+        <a href="{% url 'forum:comment' i.id %}"><button class="btn btn-danger" style="margin-left:80%;margin-right:5px;margin-bottom:15px;">Add Comment</button></a><br>
+        {% else %}
+        <a href="/login/" style="float: right"><button class="btn btn-danger">Add Comment</button></a><br>
+        {% endif %}
+        <div id="{{ i.id }}" class="collapse" style="float:clear;">
           <div id="comment" class="container">
-            {% for c in i.comments.all %}
-                <hr>
-                <i>User: {{ c.user }}</i>
-                <p>TEXT: {{ c.comment }}</p>
+              <div>
+                {% for c in i.comments.all %}
+                  <!-- <img src="media/default_user.png" alt="Avatar" style="width:50px;border-radius: 50%;float:left;margin-right:5px;"> -->
+                  <div style="float: left"><p class="card-text mb-auto">{{ c.comment }}<div class="mb-1 text-muted">by {{ c.user }}</div></p></div>
                 {% if c.user == user %}
-                  <a href="{% url 'forum:comment_delete' c.id %}">Delete</a>
-                  <a href="{% url 'forum:comment_update' c.id %}">Update</a>
+                <div style="float:right">
+                <a href="{% url 'forum:comment_delete' c.id %}" style="color: grey;">Delete</a>
+                <a href="{% url 'forum:comment_update' c.id %}">Update</a>
+                </div>
                 {% endif %}
-                <hr>
-            {% endfor %}
+                <br/><br/>
+                <hr style="float: clear"/>
+                <hr style="background-color: lightgray;height: 1px;"/>
+                {% endfor %}
+              </div>
+            </div>
           </div>
         </div>
-      <hr>
+      </div>
+    </div>
+  </div>
+
+</div>
     {% endfor %}
+
   {% else %}
     <b>NO POSTS!</b>
   {% endif %}
-{% else %}
-  <a href="/login/">Login to continue</a>
-{% endif %}
 {% endblock %}

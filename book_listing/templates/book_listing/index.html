@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Index</title>
 </head>
-<body>
+{% extends 'book_listing/base.html' %}
+{% block books %}
 {% if all_books %}
     {% for book in all_books %}
         <div class="container">
@@ -35,6 +36,4 @@
     <a href="{% url 'books:book-add' %}">
         <button>Add Book</button>
     </a>
-
-</body>
-</html>
+{% endblock %}
