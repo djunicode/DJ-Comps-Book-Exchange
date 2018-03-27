@@ -5,12 +5,11 @@ from .views import (PostCreate,
                     comment_to_post,
                     CommentDelete,
                     CommentUpdate,
-                    post_list,
                     search_post,
                     )
 
 urlpatterns = [
-    url(r'^$', search_post, name="list"), #PostList.as_view()
+    url(r'^$', search_post, name="list"),  # PostList.as_view()
     url(r'^create/$', PostCreate.as_view(), name="create"),
     url(r'^update/(?P<pk>\d+)/$', PostUpdate.as_view(), name="update"),
     url(r'^delete/(?P<pk>\d+)/$', PostDelete.as_view(), name="delete"),
