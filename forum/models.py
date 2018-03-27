@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.urls import reverse
+# from django.urls import reverse
 # Create your models here.
 
 
@@ -15,6 +15,7 @@ class Post(models.Model):
 
     class Meta():
         ordering = ["-date_created"]
+
 
 class Comment(models.Model):
     post = models.ForeignKey("forum.Post", related_name="comments")
