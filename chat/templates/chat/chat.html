@@ -3,28 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat</title>
+
 </head>
+<body>
 {% block forum %}
-    <meta http-equiv="refresh" content="7" />
-    <h1>{{ username }}</h1><hr>
-
-    {% for item in messagessend %}
-     {% if user is sender %}
-     <div style="float:right">{{ item.message }}</div><br>
-      {% endif %}
-      {% if username is sender %}
-        {{ item.message }}
-      {% endif %}
+<h1>{{ receiver }}</h1><hr>
+    <div id="some_div">
+    {% for message in messages %}
+        {% if message.sender == user %}
+            <div>
+                {{ message }} {{ message.timestamp }}
+            </div><br>
+        {% else %}
+            <div style="float:right">
+                {{ message }} {{ message.timestamp }}
+            </div><br>
+        {% endif %}
     {% endfor %}
-
-    <!-- {% for item in mess %}
-      {{ item.message }}<br>
-    {% endfor %} -->
-    <br>
-
-    <form action="" method="post">
+    </div>
+    <form method="post">
         {% csrf_token %}
         <input type="text" placeholder="Type message" name="message_cont">
         <button type="submit">Send</button>
     </form>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+	var refInterval = window.setInterval('update()', 3000);
+
+    var update = function() {
+        $.ajax({
+          url: '{% url "chat:message" user_id=sender.id rec_id=receiver.id  %}',
+          success: function(data) {
+          $('#some_div').html(data);
+          }
+        });
+    };
+    update();
+</script>
 {% endblock %}
+</body>

@@ -7,7 +7,7 @@
 {% block forum %}
 {% if user.is_authenticated %}
     {% for user in users%}
-        <a href="{% url 'chat:message' user.id %}">
+        <a href="{% url 'chat:message' request.user.id user.id%}">
         <button>{{ user.user }}</button><br>
         </a><br>
     {% endfor %}
