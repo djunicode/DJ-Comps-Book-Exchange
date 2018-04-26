@@ -4,19 +4,69 @@
     <meta charset="UTF-8">
     <title>Details</title>
 </head>
-<body>
+{% extends 'book_listing/base.html' %}
+{% block books %}
+<a href="{% url 'book_listing:search' %}" class="nav nav-link">Go Back</a>
 {% for book in book_details %}
-{% for user in user_all %}
+<!-- <ul>
+  <img src="{{ book.book_image.url }}" style="width:200px; height:200px;">
+  <li>Author : {{ book.user }}</li>
+  <li>Title : {{ book.title }}</li>
+  <li>Description : {{ book.description }}</li>
+  <li>Publication : {{ book.publication }}</li>
+  <li>Semester : {{ book.semester }}</li>
+  <li>Subject: {{ book.subject }}</li>
+</ul> -->
+	<!-- start content -->
+			<div class="row single">
+				<div class="det">
+				  <div class="single_left">
+					<div class="grid images_3_of_2">
+						<div class="flexslider">
+							        <!-- FlexSlider -->
+										<script src="js/imagezoom.js"></script>
+										  <script defer="" src="js/jquery.flexslider.js"></script>
+										<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen">
 
-{% if user.user == book.user %}
-<img src="/media/{{ user.profile_pic }}"><br>
-User - {{user.user}}<br>
-First Name - {{user.first_name}}<br>
-Last Name - {{user.last_name}}<br>
-Sap - {{user.sap}}<br>
-{% endif %}
+										<script>
+										// Can also be used with $(document).ready()
+										$(window).load(function() {
+										  $('.flexslider').flexslider({
+											animation: "slide",
+											controlNav: "thumbnails"
+										  });
+										});
+										</script>
+									<!-- //FlexSlider-->
+						<div>
+              <img src="{{ book.book_image.url }}" style="width:400px; height:500px; float:left">
+				    </div>
+          <div class="" style="margin-left: 460px; padding-top: 50px; width: 500px">
+          <h3>{{ book.title }}</h3>
+          <span class="brand">Subject: <a href="#">{{ book.subject }}</a></span><br>
+          <span class="brand">Semester: <a href="#">{{ book.semester }}</a></span><br>
+          <span class="brand">Author: <a href="#">{{ book.author }}</a></span><br>
+          <span class="brand">Uploaded by: <a href="{% url 'sign_in:profile-detail' book.user %}">{{ book.user }}</a></span><br>
+          <span class="brand">Contact: <a href="mailto:{{ book.user.email }}">{{ book.user.email }}</a></span>
+          <br>
+          <div class="single-bottom1">
+    <h6>Description</h6>
+    <p class="prod-desc" style="padding-left:20px; ">{{ book.description }}</p>
+  </div>
+       </div>
+                <div class="clearfix"></div>
+               </div>
 
+
+<!--
+-->
+	       </div>
+	  </div>
+	<!-- end content -->
+
+
+</div>
+</div>
 {% endfor %}
-{% endfor %}
-</body>
-</html>
+
+{% endblock %}

@@ -1,20 +1,44 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from .models import Post, Comment
+# from sign_in.models import Profile
 from .forms import PostForm, CommentForm
-from django.views.generic import CreateView, UpdateView, DeleteView, ListView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .mixins import FormUserNeededMixin, UserOwnerMixin
+from .filters import PostFilter
+# from django.contrib.auth.models import User
 # Create your views here.
 
+# dic = {'forum': Post.objects.all(), 'prof': Profile.objects.all()}
 
-class PostList(ListView):
-    template_name = 'forum/index.html'
-    context_object_name = 'forum'
 
-    def get_queryset(self):
-        return Post.objects.all()
+def search_post(request):
+    post_list = Post.objects.all()
+    post_filtered = PostFilter(request.GET, queryset=post_list)
+    return render(request, 'forum/index.html', {'post_filtered': post_filtered, 'forum': Post.objects.all()})
+
+
+def post_list(request):
+    context = {
+        'forum': Post.objects.all(),
+
+    }
+    return render(request, 'forum/index.html', context)
+# class PostList(ListView):
+#     template_name = 'forum/index.html'
+#     # context_object_name = 'forum'
+#     # context['forum'] = Post.objects.all()
+#     # context['prof'] = Profile.objects.all()
+#     # def get_queryset(self):
+#     #     return context
+#     model = Post
+#     def get_context_data(self, **kwargs):
+#         context = super(PostList, self).get_context_data(**kwargs)
+#         context['forum'] = Post.objects.all()
+#         context['prof'] = Profile.objects.all()
+#         return context
 
 
 class PostCreate(LoginRequiredMixin, FormUserNeededMixin, CreateView):

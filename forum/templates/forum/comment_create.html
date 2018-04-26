@@ -2,9 +2,30 @@
 <title>Create</title>
 {% extends "forum/base.html" %}
 {% block forum %}
-<form  action="" method="post" enctype="multipart/form-data" >
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="POST">
-</form>
+<style>
+  #id_comment {
+    border-radius: 5px;
+    border: 2px solid #ba2424;
+  }
+  #id_comment:hover {
+    border-radius: 6px;
+    border: 2px solid #aaaaaa;
+  }
+  .createComm{
+    margin: 0 auto;
+    width: 45%;
+  }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+  }
+</style>
+<a href="{% url 'forum:list' %}" class="nav nav-link">Go Back</a><br><br>
+<div class="createComm">
+  <form  action="" method="post" enctype="multipart/form-data" >
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input class="btn btn-danger" type="submit" value="POST">
+  </form>
+</div>
 {% endblock %}

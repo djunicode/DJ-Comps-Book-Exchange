@@ -2,9 +2,23 @@
 <title>Delete</title>
 {% extends "forum/base.html" %}
 {% block forum %}
-<form action="" method="post">
-  {% csrf_token %}
-  <p>Are you sure you want to delete the <b>POST</b> "{{ object }}"?</p>
-  <input type="submit" value="Confirm" />
-</form>
+<style>
+  body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+  }
+  .delPost {
+    margin: 0 auto;
+    width: 45%;
+    color: #B52E31;
+  }
+</style>
+<a href="{% url 'forum:list' %}" class="nav nav-link">Go Back</a>
+<div class="delPost">
+  <form action="" method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete the <b>POST</b>?</p>
+    <input type="submit" value="Confirm" class="btn btn-danger"/>
+  </form>
+</div>
 {% endblock %}

@@ -2,9 +2,35 @@
 <title>Update</title>
 {% extends "forum/base.html" %}
 {% block forum %}
+<style>
+  body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+  }
+  #id_comment {
+    border-radius: 5px;
+    border: 2px solid #ba2424;
+  }
+  #id_comment:hover {
+    border-radius: 6px;
+    border: 2px solid #aaaaaa;
+  }
+  .updateComm{
+    margin: 0 auto;
+    width: 45%;
+  }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+  }
+
+</style>
+<a href="{% url 'forum:list' %}" class="nav nav-link">Go Back</a><br><br>
+<div class="updateComm">
 <form  action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Update">
+    <input class="btn btn-danger" type="submit" value="Update">
 </form>
+</div>
 {% endblock %}

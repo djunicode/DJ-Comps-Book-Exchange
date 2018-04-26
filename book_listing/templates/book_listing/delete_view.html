@@ -4,8 +4,18 @@
 </head>
 {% extends 'book_listing/base.html' %}
 {% block books %}
-<form action="" method="post">{% csrf_token %}
-  <p>Are you sure you want to delete the <b>Ad</b> "{{ object }}"?</p>
-  <input type="submit" value="Confirm" />
-</form>
+<style>
+  .delPost {
+    margin: 0 auto;
+    width: 45%;
+    color: #B52E31;
+  }
+</style>
+<a href="{% url 'book_listing:search' %}" class="nav nav-link">Go Back</a>
+<div class="delPost">
+  <form action="" method="post">{% csrf_token %}
+    <p>Are you sure you want to delete the <b>Ad</b>?</p>
+    <input class="btn btn-danger" type="submit" value="Confirm" />
+  </form>
+</div>
 {% endblock %}

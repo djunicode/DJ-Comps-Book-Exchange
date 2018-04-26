@@ -8,6 +8,7 @@ from django.views.generic import (UpdateView, DeleteView, CreateView)
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .mixins import FormUserNeededMixin, UserOwnerMixin
 from sign_in.models import Profile
+from forum.models import Post
 from django.contrib.auth.models import User
 
 
@@ -51,3 +52,14 @@ def details(request, book_id):
     user_main = User.objects.all()
     return render(request, 'book_listing/details.html', {'book_details': book_details,
                                                          'user_all': user_all, 'user_main': user_main})
+
+
+def index(request):
+    b = Book_List.objects.all()[:5]
+    p = Post.objects.all()[:5]
+    return render(request, 'book_listing/base.html', {"books": b, "forum": p})
+
+
+def book_user(request, id):
+    b = Book_List.objects.get(id=id)
+    return render(request, 'book_listing/test.html', {"b": b.user})

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% extends "forum/base.html" %}
+{% block forum %}
+<br><h1>Login</h1><form method="post">
+
+ {% csrf_token %}
+ {{ form.as_p }}
+ <div class="login">
+ <button type="submit" class="btn btn-danger">Login</button>
+</form><h3>Or <a href="{% url 'sign_in:register' %}">Click Here</a> To Register</h3><div class="registration">
+  <a href="#" class="btn btn-link">Forgot Password?</a>
+    <div class="col-md-offset-3 col-md-6">
+        <h2>existing user</h2>
+         <div class="registration_form">
+         <!-- Form -->
+            <form>
+                <div>
+                    <label>
+                        <input placeholder="email:" type="email" tabindex="3" required="">
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input placeholder="password" type="password" tabindex="4" required="">
+                    </label>
+                </div>
+                <div>
+                    <input type="submit" value="sign in">
+                </div>
+                <div class="forget">
+                    <a href="#">forgot your password</a>
+                </div>
+            </form>
+            <!-- /Form -->
+            </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+</div>
+{% endblock %}

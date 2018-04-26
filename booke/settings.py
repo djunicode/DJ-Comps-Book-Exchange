@@ -26,7 +26,7 @@ SECRET_KEY = 'vrmc01!6=ze-5k5u&m36_rh09%)jjxs^)9!tz)#36neuy%n)*k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

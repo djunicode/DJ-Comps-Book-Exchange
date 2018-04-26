@@ -1,18 +1,20 @@
-from django.db import models
 from django.contrib.auth.models import User
-
-
-class DialogBox(models.Model):
-
-    title = models.CharField(max_length=100)
+from django.db import models
+from django.shortcuts import reverse
 
 
 class Message(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
+    message = models.CharField(max_length=1200)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
 
-    dialog = models.ForeignKey(DialogBox, on_delete=models.CASCADE)
-    sender = models.ForeignKey(User)
-    message = models.TextField(max_length=255)
-    message_create_time = models.DateTimeField()
-
-    def __unicode__(self):
+    def __str__(self):
         return self.message
+
+    def get_absolute_url(self):
+        return reverse("chat:message-list")
+
+    class Meta:
+        ordering = ('timestamp',)

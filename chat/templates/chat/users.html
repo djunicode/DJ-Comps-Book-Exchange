@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends 'forum/base.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+</head>
+{% block forum %}
+{% if user.is_authenticated %}
+    {% for user in users%}
+        <a href="{% url 'chat:message' request.user.id user.id%}">
+        <button>{{ user.user }}</button><br>
+        </a><br>
+    {% endfor %}
+{% else %}
+  <p style="font-size: 35px;"><a href="/login/">Login</a></p>
+{% endif %}
+{% endblock %}
