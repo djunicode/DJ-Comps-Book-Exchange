@@ -3,42 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat</title>
-
 </head>
 <body>
 {% block forum %}
-<h1>{{ receiver }}</h1><hr>
-    <div id="some_div">
-    {% for message in messages %}
-        {% if message.sender == user %}
-            <div>
-                {{ message }} {{ message.timestamp }}
-            </div><br>
-        {% else %}
-            <div style="float:right">
-                {{ message }} {{ message.timestamp }}
-            </div><br>
-        {% endif %}
-    {% endfor %}
-    </div>
-    <form method="post">
-        {% csrf_token %}
-        <input type="text" placeholder="Type message" name="message_cont">
-        <button type="submit">Send</button>
-    </form>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script language="javascript" type="text/javascript">
-	var refInterval = window.setInterval('update()', 3000);
+    <a href="/chat/chats/">Go Back</a> 
+    <h3>{{ chat_detail.sender.username }} and {{ chat_detail.receiver.username }}</h3>
+    <div id="chatData">
 
-    var update = function() {
-        $.ajax({
-          url: '{% url "chat:message" user_id=sender.id rec_id=receiver.id  %}',
-          success: function(data) {
-          $('#some_div').html(data);
-          }
-        });
-    };
-    update();
+    </div>
+    <form id="data" method="post">
+      {% csrf_token %}
+      <input type="text" name="message" value="">
+      <button>Send</button>
+    </form>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+    var d;
+    setInterval(function() {
+      var txt = "";
+      $.ajax({
+        url: '/chat/chat_json/' + {{ chat_id }} + '/',
+        type: 'GET',
+        dataType: "json",
+        success: function(res) {
+          d = res;
+        }
+      });
+      var i;
+      for(i=0;i<d.length; i++){
+        if(d[i].sender == d[i].user_in){
+              txt += "<p class='right' style='text-align:right'>" + d[i].message + ' - ' + d[i].sender + "</p><br>";
+        } else {
+              txt += "<p class='left' style='text-align:left'>" + d[i].message + ' - ' + d[i].sender + "</p><br>";
+        }
+      }
+      document.getElementById("chatData").innerHTML = txt;
+    }, 10);
 </script>
 {% endblock %}
 </body>
