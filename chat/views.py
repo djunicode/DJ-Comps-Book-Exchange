@@ -29,7 +29,8 @@ def new_chatroom(request):
                     chat_room.save()
                     return redirect("chat:user-list")
                 else:
-                    return render(request, 'chat/users.html', {'user_filtered': user_filtered, 'no_user': "Chat already exists"})
+                    return render(request, 'chat/users.html', {'user_filtered': user_filtered,
+                                                               'no_user': "Chat already exists"})
             else:
                 return render(request, 'chat/users.html', {'user_filtered': user_filtered, 'no_user': "No such user"})
         else:
@@ -42,8 +43,8 @@ def list_chatrooms(request):
     if request.user.is_authenticated():
             chat_rooms_sender = ChatRoom.objects.all().filter(sender=request.user)
             chat_rooms_receiver = ChatRoom.objects.all().filter(receiver=request.user)
-
-            return render(request, 'chat/chat_rooms.html', {'chat_rooms_sender': chat_rooms_sender, 'chat_rooms_receiver': chat_rooms_receiver})
+            return render(request, 'chat/chat_rooms.html', {'chat_rooms_sender': chat_rooms_sender,
+                                                            'chat_rooms_receiver': chat_rooms_receiver})
     else:
         return redirect("login")
 
@@ -67,10 +68,12 @@ def start_chat(request, id):
                 m.save()
                 return redirect("/chat/chat/" + id)
             else:
-                return render(request, 'chat/chat.html', {'chat_detail': chat_room[0], 'no_message': 'Please type something!', 'chat_id': id})
+                return render(request, 'chat/chat.html', {'chat_detail': chat_room[0],
+                                                          'no_message': 'Please type something!', 'chat_id': id})
         else:
             m = Message.objects.all().filter(conversation=chat_room[0])
-            return render(request, 'chat/chat.html', {'chat_detail': chat_room[0], 'no_message': '', 'messages': m, 'chat_id': id})
+            return render(request, 'chat/chat.html', {'chat_detail': chat_room[0],
+                                                      'no_message': '', 'messages': m, 'chat_id': id})
     else:
         return redirect('login')
 
