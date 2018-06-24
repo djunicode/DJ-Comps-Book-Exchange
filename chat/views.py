@@ -56,8 +56,9 @@ def start_chat(request, id):
             receiver = chat_room[0].receiver
         else:
             receiver = chat_room[0].sender
-        if request.POST:
+        if request.POST and request.is_ajax():
             message = request.POST.get("message")
+            print(message)
             if message != "" and len(chat_room) != 0:
                 m = Message.objects.create(
                     conversation=chat_room[0],

@@ -6,15 +6,15 @@
 </head>
 <body>
 {% block forum %}
-    <a href="/chat/chats/">Go Back</a> 
+    <a href="/chat/chats/">Go Back</a>
     <h3>{{ chat_detail.sender.username }} and {{ chat_detail.receiver.username }}</h3>
     <div id="chatData">
 
     </div>
     <form id="data" method="post">
       {% csrf_token %}
-      <input type="text" name="message" value="">
-      <button>Send</button>
+      <input type="text" id="message" value="" onclick="this.value=''">
+      <button type="submit">Send</button>
     </form>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -39,7 +39,26 @@
         }
       }
       document.getElementById("chatData").innerHTML = txt;
-    }, 10);
+    }, 1000);
+
+    //POST REQUEST
+    $(document).ready(function() {
+			$("form#data").submit(function(event){
+				event.preventDefault();
+				$.ajax({
+					url: window.location.pathname,
+					type: 'POST',
+					data: {
+						'message': $("#message").val(),
+						'csrfmiddlewaretoken': "{{ csrf_token }}"
+					},
+					success: function() {
+            document.getElementById("message").innerHTML = "";
+          }
+				});
+				return false;
+			});
+		});
 </script>
 {% endblock %}
 </body>
