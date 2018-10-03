@@ -4,6 +4,29 @@
     <meta charset="UTF-8">
     <title>Details</title>
 </head>
+<style>
+@media only screen and (max-width: 417px) {
+  .imagestyle{
+    width:100%;
+    height:100vw;
+  }
+  .desc{
+    width: 100%;
+    padding-top: 20px;
+  }
+}
+
+@media only screen and (min-width: 418px) {
+  .imagestyle{
+    width:400px; height:500px; float:left;
+  }
+  .desc{
+     margin-left: 460px;
+     padding-top: 50px;
+     width: 500px;
+  }
+}
+</style>
 {% extends 'book_listing/base.html' %}
 {% block books %}
 <a href="{% url 'book_listing:search' %}" class="nav nav-link">Go Back</a>
@@ -39,9 +62,9 @@
 										</script>
 									<!-- //FlexSlider-->
 						<div>
-              <img src="{{ book.book_image.url }}" style="width:400px; height:500px; float:left">
+              <img src="{{ book.book_image.url }}" class="imagestyle">
 				    </div>
-          <div class="" style="margin-left: 460px; padding-top: 50px; width: 500px">
+          <div class="desc">
           <h3>{{ book.title }}</h3>
           <span class="brand">Subject: <a href="#">{{ book.subject }}</a></span><br>
           <span class="brand">Semester: <a href="#">{{ book.semester }}</a></span><br>
@@ -56,10 +79,6 @@
        </div>
                 <div class="clearfix"></div>
                </div>
-
-
-<!--
--->
 	       </div>
 	  </div>
 	<!-- end content -->
