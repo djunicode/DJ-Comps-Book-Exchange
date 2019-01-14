@@ -33,6 +33,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         if message != "":
             add_chat = await self.add_chat(self.room_name, message, sender, receiver)
+            print(add_chat)
 
         # Send message to room group
         await self.channel_layer.group_send(
@@ -47,8 +48,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     # Receive message from room group
     async def chat_message(self, event):
-        message = event["message"]
-
         chat_hist_data = await self.get_chats(self.room_name)
 
         await self.send(text_data=json.dumps({"data": chat_hist_data}))
@@ -58,9 +57,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
     def get_users(self, id):
         id = int(id)
         c = ChatRoom.objects.filter(id=id)[0]
-        l = [c.sender.username, c.receiver.username]
+        users = [c.sender.username, c.receiver.username]
 
-        return l
+        return users
 
     # Getting Chats
     @database_sync_to_async
