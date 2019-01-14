@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('sign_in', '0001_initial'),
-    ]
+    dependencies = [("sign_in", "0001_initial")]
 
     operations = [
         migrations.AlterField(
-            model_name='profile',
-            name='profile_pic',
-            field=models.FileField(upload_to='profile pics/'),
-        ),
+            model_name="profile",
+            name="profile_pic",
+            field=models.FileField(upload_to="profile pics/"),
+        )
     ]

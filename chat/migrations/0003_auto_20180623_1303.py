@@ -11,33 +11,53 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('chat', '0002_auto_20180208_1856'),
+        ("chat", "0002_auto_20180208_1856"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ChatRoom',
+            name="ChatRoom",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('receiver', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='receiver', to=settings.AUTH_USER_MODEL)),
-                ('sender', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sender', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "receiver",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="receiver",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "sender",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="sender",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.AlterModelOptions(
-            name='message',
-            options={'ordering': ('-timestamp',)},
+            name="message", options={"ordering": ("-timestamp",)}
         ),
-        migrations.RemoveField(
-            model_name='message',
-            name='receiver',
-        ),
-        migrations.RemoveField(
-            model_name='message',
-            name='sender',
-        ),
+        migrations.RemoveField(model_name="message", name="receiver"),
+        migrations.RemoveField(model_name="message", name="sender"),
         migrations.AddField(
-            model_name='message',
-            name='conversation',
-            field=models.ForeignKey(default=False, on_delete=django.db.models.deletion.CASCADE, related_name='conversation', to='chat.ChatRoom'),
+            model_name="message",
+            name="conversation",
+            field=models.ForeignKey(
+                default=False,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="conversation",
+                to="chat.ChatRoom",
+            ),
         ),
     ]

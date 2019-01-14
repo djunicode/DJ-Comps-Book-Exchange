@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('book_listing', '0002_book_list_author'),
-    ]
+    dependencies = [("book_listing", "0002_book_list_author")]
 
     operations = [
         migrations.AlterField(
-            model_name='book_list',
-            name='description',
+            model_name="book_list",
+            name="description",
             field=models.TextField(blank=True, max_length=1000),
-        ),
+        )
     ]

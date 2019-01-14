@@ -7,14 +7,10 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('sign_in', '0007_auto_20180309_0950'),
-    ]
+    dependencies = [("sign_in", "0007_auto_20180309_0950")]
 
     operations = [
         migrations.AlterField(
-            model_name='profile',
-            name='sap',
-            field=models.BigIntegerField(unique=True),
-        ),
+            model_name="profile", name="sap", field=models.BigIntegerField(unique=True)
+        )
     ]

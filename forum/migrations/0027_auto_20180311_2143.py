@@ -7,17 +7,9 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('forum', '0026_post_slug'),
-    ]
+    dependencies = [("forum", "0026_post_slug")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='post',
-            name='likes',
-        ),
-        migrations.RemoveField(
-            model_name='post',
-            name='slug',
-        ),
+        migrations.RemoveField(model_name="post", name="likes"),
+        migrations.RemoveField(model_name="post", name="slug"),
     ]

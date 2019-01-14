@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+
 # from django.urls import reverse
 # Create your models here.
 
@@ -13,7 +14,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    class Meta():
+    class Meta:
         ordering = ["-date_created"]
 
 
@@ -26,5 +27,5 @@ class Comment(models.Model):
     def __str__(self):
         return self.comment
 
-    class Meta():
+    class Meta:
         ordering = ["-date_created"]

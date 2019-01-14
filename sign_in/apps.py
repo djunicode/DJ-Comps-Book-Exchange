@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class SignInConfig(AppConfig):
-    name = 'sign_in'
+    name = "sign_in"
