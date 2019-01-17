@@ -5,13 +5,23 @@
     <title>Chat</title>
 </head>
 {% block forum %}
-{% if user.is_authenticated %}
-    {% for user in users%}
-        <a href="{% url 'chat:message' request.user.id user.id%}">
-        <button>{{ user.user }}</button><br>
-        </a><br>
+    <a href="{% url 'chat:user-list'%}">Go Back</a>
+    <h3>Sender: {{ user }}</h3>
+    <form method="get">
+        {{ user_filtered.form.as_p }}
+        <button type="submit" class="btn btn-danger">Search User</button>
+        <p style="color:red">{{ no_user }}</p>
+    </form>
+    {% if user_filtered.qs %}
+    {% for i in user_filtered.qs %}
+    <form method="post">
+      {% csrf_token %}
+        <input type="text" name="user" value="{{ i.username }}">
+        <button style="margin-left: 40px" type="submit" class="btn btn-danger">Start Conversation</button>
+        <hr>
+    </form>
     {% endfor %}
-{% else %}
-  <p style="font-size: 35px;"><a href="/login/">Login</a></p>
-{% endif %}
+    {% else %}
+      <p style="color:red">No such user</p>
+    {% endif %}
 {% endblock %}

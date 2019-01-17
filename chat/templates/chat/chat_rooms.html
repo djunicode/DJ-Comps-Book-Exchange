@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends 'forum/base.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Your Chats</title>
+</head>
+{% block forum %}
+    <a href="/chat/new_chat/">Start New</a> 
+    <h3>Your conversations</h3>
+    {% for chat in chat_rooms_sender %}
+        <p><a href="{% url 'chat:chat' chat.id %}">You and {{ chat.receiver }}</a></p>
+    {% endfor %}
+
+    {% for chat in chat_rooms_receiver %}
+        <p><a href="{% url 'chat:chat' chat.id %}">You and {{ chat.sender }}</a></p>
+    {% endfor %}
+{% endblock %}
