@@ -1,7 +1,8 @@
 # DJ-Comps-Book-Exchange
 Book Exchange Web-app for exchange and transfer of books between juniors and seniors.
-
 ----------
+
+[View the project report - screenshots included!](https://docs.google.com/document/d/10WtoVKq5a6-ctGN8iyou6UHu2eSSS0QxxiRFwRZmkkE/edit?usp=sharing)
 
 ## Features:
 
