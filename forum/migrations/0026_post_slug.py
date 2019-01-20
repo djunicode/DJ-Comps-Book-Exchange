@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('forum', '0025_remove_post_slug'),
-    ]
+    dependencies = [("forum", "0025_remove_post_slug")]
 
     operations = [
         migrations.AddField(
-            model_name='post',
-            name='slug',
+            model_name="post",
+            name="slug",
             field=models.SlugField(blank=True, unique=True),
-        ),
+        )
     ]

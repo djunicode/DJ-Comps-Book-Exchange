@@ -8,14 +8,16 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('forum', '0017_auto_20180115_2256'),
-    ]
+    dependencies = [("forum", "0017_auto_20180115_2256")]
 
     operations = [
         migrations.AlterField(
-            model_name='comment',
-            name='post',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comment', to='forum.Post'),
-        ),
+            model_name="comment",
+            name="post",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="comment",
+                to="forum.Post",
+            ),
+        )
     ]

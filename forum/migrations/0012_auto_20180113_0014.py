@@ -9,19 +9,25 @@ from django.utils.timezone import utc
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('forum', '0011_auto_20180113_0005'),
-    ]
+    dependencies = [("forum", "0011_auto_20180113_0005")]
 
     operations = [
         migrations.AlterField(
-            model_name='comment',
-            name='date_created',
-            field=models.DateTimeField(verbose_name=datetime.datetime(2018, 1, 12, 18, 44, 7, 76905, tzinfo=utc)),
+            model_name="comment",
+            name="date_created",
+            field=models.DateTimeField(
+                verbose_name=datetime.datetime(
+                    2018, 1, 12, 18, 44, 7, 76905, tzinfo=utc
+                )
+            ),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='date_created',
-            field=models.DateTimeField(verbose_name=datetime.datetime(2018, 1, 12, 18, 44, 7, 75888, tzinfo=utc)),
+            model_name="post",
+            name="date_created",
+            field=models.DateTimeField(
+                verbose_name=datetime.datetime(
+                    2018, 1, 12, 18, 44, 7, 75888, tzinfo=utc
+                )
+            ),
         ),
     ]

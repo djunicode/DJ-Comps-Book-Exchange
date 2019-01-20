@@ -11,22 +11,31 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('chat', '0003_auto_20180623_1303'),
+        ("chat", "0003_auto_20180623_1303"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='message',
-            options={'ordering': ('timestamp',)},
+            name="message", options={"ordering": ("timestamp",)}
         ),
         migrations.AddField(
-            model_name='message',
-            name='receiver1',
-            field=models.ForeignKey(default=False, on_delete=django.db.models.deletion.CASCADE, related_name='receiver1', to=settings.AUTH_USER_MODEL),
+            model_name="message",
+            name="receiver1",
+            field=models.ForeignKey(
+                default=False,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="receiver1",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='message',
-            name='sender1',
-            field=models.ForeignKey(default=False, on_delete=django.db.models.deletion.CASCADE, related_name='sender1', to=settings.AUTH_USER_MODEL),
+            model_name="message",
+            name="sender1",
+            field=models.ForeignKey(
+                default=False,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="sender1",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

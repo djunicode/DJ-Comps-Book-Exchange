@@ -7,17 +7,13 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('forum', '0015_auto_20180115_2058'),
-    ]
+    dependencies = [("forum", "0015_auto_20180115_2058")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='comment',
-            options={'ordering': ['-date_created']},
+            name="comment", options={"ordering": ["-date_created"]}
         ),
         migrations.AlterModelOptions(
-            name='post',
-            options={'ordering': ['-date_created']},
+            name="post", options={"ordering": ["-date_created"]}
         ),
     ]

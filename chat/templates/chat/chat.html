@@ -7,58 +7,84 @@
 <body>
 {% block forum %}
     <a href="/chat/chats/">Go Back</a>
-    <h3>{{ chat_detail.sender.username }} and {{ chat_detail.receiver.username }}</h3>
-    <div id="chatData">
-
+    <h3>{{ user1 }} and {{ user2 }}</h3>
+    <div id="chat" style="height: 200px; overflow-x:hidden; overflow-y:visible; background-color: white;"></div>
+    <div class="chat-input" style="margin: 0 auto;">
+      <input type="text" id="message" value="">
+      <button type="submit" class="btn btn-danger" id="chat-submit">Send</button>
     </div>
-    <form id="data" method="post">
-      {% csrf_token %}
-      <input type="text" id="message" value="" onclick="this.value=''">
-      <button type="submit">Send</button>
-    </form>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript">
-    var d;
-    setInterval(function() {
-      var txt = "";
-      $.ajax({
-        url: '/chat/chat_json/' + {{ chat_id }} + '/',
-        type: 'GET',
-        dataType: "json",
-        success: function(res) {
-          d = res;
-        }
-      });
-      var i;
-      for(i=0;i<d.length; i++){
-        if(d[i].sender == d[i].user_in){
-              txt += "<p class='right' style='text-align:right'>" + d[i].message + ' - ' + d[i].sender + "</p><br>";
-        } else {
-              txt += "<p class='left' style='text-align:left'>" + d[i].message + ' - ' + d[i].sender + "</p><br>";
-        }
-      }
-      document.getElementById("chatData").innerHTML = txt;
-    }, 1000);
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // When we're using HTTPS, use WSS too.
+    var date = new Date();
+    var id = {{ id }};
+    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    var chatSocket = new WebSocket('ws://' + window.location.host +'/ws/chat/' + id + '/');
 
-    //POST REQUEST
-    $(document).ready(function() {
-			$("form#data").submit(function(event){
-				event.preventDefault();
-				$.ajax({
-					url: window.location.pathname,
-					type: 'POST',
-					data: {
-						'message': $("#message").val(),
-						'csrfmiddlewaretoken': "{{ csrf_token }}"
-					},
-					success: function() {
-            document.getElementById("message").innerHTML = "";
+    if ("{{ user }}" == "{{ user1 }}"){
+      var user1 = "{{ user1 }}";
+      var user2 = "{{ user2 }}";
+    } else {
+      var user1 = "{{ user2 }}";
+      var user2 = "{{ user1 }}";
+    }
+
+    chatSocket.onopen = (e) => {
+      chatSocket.send(JSON.stringify({
+          'message': "",
+          'sender': user1,
+          'receiver': user2
+      }));
+    };
+
+    chatSocket.onmessage = function(e) {
+        var data = JSON.parse(e.data)['data'];
+        $("#chat").empty();
+        for(var i = 0; i < data.length; i++) {
+          var message = data[i].message;
+          var sender = data[i].sender;
+          var receiver = data[i].receiver;
+          var txt = "";
+          if(sender == "{{ user }}"){
+                txt += "<p class='right' style='text-align:right'>" + message + ' - ' + sender + "</p><br>";
+          } else {
+                txt += "<p class='left' style='text-align:left'>" + message + ' - ' + sender + "</p><br>";
           }
-				});
-				return false;
-			});
-		});
+          $("#chat").append(txt);
+        }
+
+        var elem = document.getElementById("chat");
+        elem.scrollTop = elem.scrollHeight;
+
+        // console.log(data['data']);
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    document.querySelector('#message').focus();
+    document.querySelector('#message').onkeyup = function(e) {
+        if (e.keyCode === 13) {  // enter, return
+            document.querySelector('#chat-submit').click();
+        }
+    };
+
+    document.querySelector('#chat-submit').onclick = function(e) {
+        var messageInputDom = document.querySelector('#message');
+        var message = messageInputDom.value;
+        chatSocket.send(JSON.stringify({
+            'message': message,
+            'sender': user1,
+            'receiver': user2
+        }));
+
+        messageInputDom.value = '';
+    };
+  });
 </script>
 {% endblock %}
 </body>
