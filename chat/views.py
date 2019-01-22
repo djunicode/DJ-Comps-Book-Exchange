@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import ChatRoom, Message
+from sign_in.models import Profile
 from django.contrib.auth.models import User
 from itertools import chain
 from .filters import UserFilter
@@ -81,13 +82,26 @@ def start_chat(request, id):
         chat_room = ChatRoom.objects.filter(id=id)[0]
         if request.user == chat_room.sender or request.user == chat_room.receiver:
             if request.user == chat_room.sender:
-                user1 = request.user.username
+                user1 = request.user
                 user2 = chat_room.receiver
             else:
                 user1 = chat_room.sender
-                user2 = request.user.username
+                user2 = request.user
+
+            if request.user == user1:
+                user2_profile = Profile.objects.filter(user=user2)[0]
+            else:
+                user2_profile = Profile.objects.filter(user=user1)[0]
+
             return render(
-                request, "chat/chat.html", {"user1": user1, "user2": user2, "id": id}
+                request,
+                "chat/chat.html",
+                {
+                    "user1": user1,
+                    "user2": user2,
+                    "id": id,
+                    "user2_profile": user2_profile,
+                },
             )
 
         else:
