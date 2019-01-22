@@ -73,17 +73,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         for i in m:
             IST = timezone("Asia/Kolkata")
             i.timestamp = i.timestamp.astimezone(IST)
-            timestamp = (
-                str(i.timestamp.day)
-                + "/"
-                + str(i.timestamp.month)
-                + "/"
-                + str(i.timestamp.year)
-                + " "
-                + str(i.timestamp.hour)
-                + ":"
-                + str(i.timestamp.minute)
-            )
+            timestamp = (str(i.timestamp.day) + "/" + str(i.timestamp.month)
+                         + "/" + str(i.timestamp.year) + " " + str(i.timestamp.hour)
+                         + ":" + str(i.timestamp.minute))
             chat_hist_data.append(
                 {
                     "conversation": i.conversation.id,
