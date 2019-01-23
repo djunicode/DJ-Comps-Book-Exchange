@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from .models import Post, Comment
+
 # from sign_in.models import Profile
 from .forms import PostForm, CommentForm
 from django.views.generic import CreateView, UpdateView, DeleteView
@@ -8,6 +9,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .mixins import FormUserNeededMixin, UserOwnerMixin
 from .filters import PostFilter
+
 # from django.contrib.auth.models import User
 # Create your views here.
 
@@ -17,15 +19,18 @@ from .filters import PostFilter
 def search_post(request):
     post_list = Post.objects.all()
     post_filtered = PostFilter(request.GET, queryset=post_list)
-    return render(request, 'forum/index.html', {'post_filtered': post_filtered, 'forum': Post.objects.all()})
+    return render(
+        request,
+        "forum/index.html",
+        {"post_filtered": post_filtered, "forum": Post.objects.all()},
+    )
 
 
 def post_list(request):
-    context = {
-        'forum': Post.objects.all(),
+    context = {"forum": Post.objects.all()}
+    return render(request, "forum/index.html", context)
 
-    }
-    return render(request, 'forum/index.html', context)
+
 # class PostList(ListView):
 #     template_name = 'forum/index.html'
 #     # context_object_name = 'forum'
@@ -47,7 +52,7 @@ class PostCreate(LoginRequiredMixin, FormUserNeededMixin, CreateView):
     model = Post
     login_url = "/admin/"
     success_url = reverse_lazy("forum:list")
-    context_object_name = 'forum'
+    context_object_name = "forum"
 
 
 class PostUpdate(LoginRequiredMixin, UserOwnerMixin, UpdateView):
@@ -55,7 +60,7 @@ class PostUpdate(LoginRequiredMixin, UserOwnerMixin, UpdateView):
     form_class = PostForm
     model = Post
     template_name = "forum/update.html"
-    context_object_name = 'forum'
+    context_object_name = "forum"
     success_url = reverse_lazy("forum:list")
 
 
@@ -63,7 +68,7 @@ class PostDelete(LoginRequiredMixin, UserOwnerMixin, DeleteView):
     model = Post
     template_name = "forum/delete.html"
     success_url = reverse_lazy("forum:list")
-    context_object_name = 'forum'
+    context_object_name = "forum"
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -71,7 +76,11 @@ class PostDelete(LoginRequiredMixin, UserOwnerMixin, DeleteView):
             self.object.delete()
             return HttpResponseRedirect(self.get_success_url())
         else:
-            return render(request, 'forum/not_allowed.html', {"txt": "You are not allowed to delete this."})
+            return render(
+                request,
+                "forum/not_allowed.html",
+                {"txt": "You are not allowed to delete this."},
+            )
 
 
 def comment_to_post(request, pk):
@@ -83,10 +92,10 @@ def comment_to_post(request, pk):
             comment.user_id = request.user.id
             comment.post = post
             comment.save()
-        return redirect('/forum/')
+        return redirect("/forum/")
     else:
         form = CommentForm()
-    return render(request, 'forum/comment_create.html', {'form': form})
+    return render(request, "forum/comment_create.html", {"form": form})
 
 
 class CommentDelete(LoginRequiredMixin, UserOwnerMixin, DeleteView):
@@ -100,7 +109,11 @@ class CommentDelete(LoginRequiredMixin, UserOwnerMixin, DeleteView):
             self.object.delete()
             return HttpResponseRedirect(self.get_success_url())
         else:
-            return render(request, 'forum/not_allowed.html', {"txt": "You are not allowed to delete this."})
+            return render(
+                request,
+                "forum/not_allowed.html",
+                {"txt": "You are not allowed to delete this."},
+            )
 
 
 class CommentUpdate(LoginRequiredMixin, UserOwnerMixin, UpdateView):
