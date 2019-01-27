@@ -110,33 +110,24 @@
                         <!-- start main content -->
                         <div class="grids">
 
-
-
-
-
-
-
-
-
         <div class="container-fluid">
            <div class="row">
              <h2 class="title-style-1">
-                    <div class="alert alert-warning" role="alert">
-  {{ user }}
-</div>
+                    <div class="alert alert-warning" role="alert">{{ user }}</div>
                 <span class="title-under"></span></h2><br/>
                <div class="col-md-4">
 
-               <img src="/media/{{ user.profile_pic }}" alt="xyz" class="card" style="border:1px solid lightgray;height: 270px; width: 270px;margin-bottom: 20px;">
+               <img src="/media/{{ user.profile_pic }}" alt="xyz" class="card"
+               style="border:1px solid lightgray;height: 80vw; max-height: 270px; width: 100%;max-width: 270px;margin-bottom: 20px;">
                </div>
                <div class="col-md-7 card" style="margin-top: 0px;">
 
-<br/>
-<ul class="list-group">
-  <li class="list-group-item"><p><b>Username:</b>&nbsp;{{ request.user }}</p></li>
-  <li class="list-group-item"><p><b>Email:</b>&nbsp;{{ request.user.email }}</p></li>
-  <li class="list-group-item"><p><b>SAP:</b>&nbsp;{{ user.sap }}</p></li>
-</ul>
+              <br/>
+              <ul class="list-group" style="padding-bottom: 20px">
+                <li class="list-group-item"><p><b>Username:</b>&nbsp;{{ request.user }}</p></li>
+                <li class="list-group-item"><p><b>Email:</b>&nbsp;{{ request.user.email }}</p></li>
+                <li class="list-group-item"><p><b>SAP:</b>&nbsp;{{ user.sap }}</p></li>
+              </ul>
 
                </div>
              </div>
@@ -149,7 +140,6 @@
   BOOKS UPLOADED <span class="badge badge-light"></span>
   <span class="sr-only">unread messages</span>
 </button>
-
         {% for book in books %}
         <!-- <div class="grids_of_4">
           <div class="grid1_of_4" style="box-shadow: 5px 5px #cdd8d3">
@@ -194,6 +184,7 @@
            </div>
          </div>
            {% endfor %}
+
             <!--<div class="grid1_of_4" style="box-shadow: 5px 5px #cdd8d3">
                 <div class="content_box"><a href="details.html">
                            <img src="images/bee.jpg" class="img-responsive" alt="" style="height: 300px;width: 250px;">
@@ -240,16 +231,10 @@
 </button>
 <ul><br>
   {% for posts in forum %}
-    <li class="list-group-item"><a style="font-size: 20px" href="{% url 'forum:list' %}" class="btn btn-link">{{ posts.title }}</a></li>
+    <li class="list-group-item"><a style="font-size: 20px"
+      href="{% url 'forum:list' %}" class="btn btn-link">{{ posts.title }}</a></li>
   {% endfor %}
 </ul>
-
-
-
-
-
-
-
 
 
                         <hr style="color: #b52e31;background-color: #b52e31;height: 2px;">
@@ -281,6 +266,7 @@
 
                 </div>
             </div>
+        </div>
         </div>
         <div class="sidebar-menu">
             <header class="logo1">
