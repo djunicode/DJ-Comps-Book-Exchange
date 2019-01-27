@@ -49,10 +49,21 @@
   #id_publication {
     color: black;
   }
+  @media only screen and (max-width: 418px) {
+    textarea{
+      width: 100%;
+    }
+    .unalign{
+      width: 100%;
+    }
+    select{
+      width: 100%;
+    }
+  }
 </style>
 <a href="{% url 'book_listing:search' %}" class="nav nav-link">Go Back</a>
-<div class="newPost">
-  <form  action="" method="post" enctype="multipart/form-data">
+<div class="newPost unalign">
+  <form  action="" method="post" enctype="multipart/form-data" class="unalign">
       {% csrf_token %}
       {{ form.as_p }}
       <br>

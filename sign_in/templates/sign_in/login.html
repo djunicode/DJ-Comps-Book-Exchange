@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 {% extends "forum/base.html" %}
 {% block forum %}
-<br><h1>Login</h1><form method="post">
-
+<br><h1>Login</h1>
+<form method="post">
  {% csrf_token %}
  {{ form.as_p }}
  <div class="login">

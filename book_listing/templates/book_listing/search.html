@@ -7,6 +7,34 @@
     color: #B52E31;
     font-weight: 400;
   }
+
+  @media only screen and (min-width: 419px) {
+    #clearstyle{
+      clear: both;
+    }
+    #centerbutton{
+      width: 255px;
+    }
+    .cb{
+      margin: 25px 30px;
+    }
+  }
+
+  @media only screen and (max-width: 418px) {
+    #centerbutton{
+      width: 100%;
+      margin: 0 auto;
+    }
+    .cb{
+      margin: 10px auto;
+    }
+    textarea, input, select{
+      width: 100%;
+    }
+    .unalign{
+      width: 100%;
+    }
+  }
 </style>
 
 <i class="fa fa-filter" style="margin-left: 10px; color: #B52E31;" aria-hidden="true"></i>
@@ -79,17 +107,20 @@
             </div> -->
             <!-- test -->
             <!-- test -->
-
-                <div class="content_box" style="box-shadow: 5px 5px #cdd8d3; width: 300px;height: 530px;float: left; margin: 10px;">
+              <div style="width:100%; margin:auto; text-align:center">
+                <div class="content_box cb"
+                style="box-shadow: 2px 2px #cdd8d3; width: 100%; max-width: 300px;height: 530px;float: left; text-align:center">
                   {% if user.is_authenticated %}
                   <a href="{% url 'book_listing:details' book.id %}">
-                       <img src="/media/{{ book.book_image }}" class="img-responsive" alt="" style="margin: 0 auto; height: 300px;width: 255px;">
-                      </a>
+                       <img src="/media/{{ book.book_image }}" class="img-responsive" alt=""
+                       style="margin: 0 auto; height: 300px; width: 100%; max-width: 300px;">
+                  </a>
                   {% else %}
                   <a href="/login/">
-                       <img src="/media/{{ book.book_image }}" class="img-responsive" alt="" style="margin: 0 auto; height: 300px;width: 255px;">
-                      </a>
-                    {% endif %}
+                       <img src="/media/{{ book.book_image }}" class="img-responsive" alt=""
+                       style="margin: 0; height: 300px;width: 255px;">
+                  </a>
+                  {% endif %}
                     <div class="container" style="text-align: left">
                       <div><h4 style="width:255px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; "><a href="{% url 'book_listing:details' book.id %}"> {{ book.title }}</a></h4></div>
                           <div style="width:255px; height:80px">  <p style="text-align: left"><b>Author: </b>{{ book.author }}<br/>
@@ -99,7 +130,7 @@
                     </div>
                    <div class="simpleCart_shelfItem">
                     <br/>
-                  <div class="item_add" style="width:255px;">
+                  <div class="item_add" id="centerbutton">
                     {% if user.is_authenticated %}
                     <span class="item_price">
                       <a href="{% url 'book_listing:details' book.id %}">  Details</a>
@@ -121,6 +152,7 @@
                    </div>
                   </div>
                 </div>
+              </div>
 
             <!-- {% if book.user == user %}
             <a href="{% url 'book_listing:update' book.id %}">
@@ -136,11 +168,11 @@
 
 
       {% endfor %}
-
+</div>
   {% else %}
       <div>
           No Entries
       </div>
   {% endif %}
-  <div style="clear: both;"/>
+<div id="clearstyle"/>
 {% endblock %}

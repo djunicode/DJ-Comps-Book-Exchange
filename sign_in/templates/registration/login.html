@@ -14,11 +14,21 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
   }
+  @media only screen and (max-width: 418px) {
+    textarea{
+      width: 100%;
+    }
+    .unalign{
+      width: 100%;
+    }
+    select{
+      width: 100%;
+    }
+  }
 </style>
-<div class="login">
-
-
-<br><h1>Login</h1><form method="post">
+<div class="login unalign">
+<br><h1>Login</h1>
+<form method="post" class="unalign">
  {% csrf_token %}
  {{ form.as_p }}
  <button type="submit" class="btn btn-danger">Login</button>

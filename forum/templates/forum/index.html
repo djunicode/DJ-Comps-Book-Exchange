@@ -11,24 +11,55 @@
    box-shadow: 5px 5px 6px #e2e2e2;
 
 }
-label {
-  display: none;
+label {  display: none;
+}
+@media only screen and (min-width: 417px) {
+  #updateDelete {
+    position: absolute;
+    right:35px; top: 25px;
+  }
+  .hoverkaro {
+    margin: 40px 45px 40px 45px;
+  }
+  #addComment {
+    margin-left:80%;
+    margin-right:5px;
+    margin-bottom:15px;
+  }
+  #search{
+    margin: auto;
+  }
+}
+@media only screen and (max-width:321px){
+  #addComment{
+      font-size: 8px;
+  }
+}
+@media only screen and (max-width:418px) {
+  #addComment {
+    font-size: 10px;
+    margin: 0px 5px 10px 5px;
+    padding: 6px;
+  }
+  .hoverkaro {
+    margin: 20px 0px;
+  }
 }
 </style>
-<form method="get" style="margin: 0 auto; width: 40%">
+<form method="get" id="search" style="width: 40%; min-width: 200px">
   {{ post_filtered.form.as_p }}
   <button type="submit" class="btn btn-danger">Search</button>
-  <a class="btn btn-link" href="{% url 'forum:list' %}">Clear Search</a>
+  <a class="btn btn-link" href="{% url 'forum:list' %}" class="btn" style="border: 2px solid lightgray; text-decoration: none;">Clear Search</a>
 </form>
 {% if user.is_authenticated %}
-  <a href="{% url 'forum:create' %}"><button class="btn btn-danger">Add POST</button></a>
+  <a href="{% url 'forum:create' %}"><button class="btn btn-danger" style="margin-top: 10px;">Add POST</button></a>
   {% else %}
   <a href="/login/"><button class="btn btn-danger">POST</button></a><br>
 {% endif %}
 <hr style="color: #b52e31;background-color: #b52e31;height: 2px;"/>
   {% if post_filtered.qs %}
     {% for i in post_filtered.qs %}
-  <div class="hoverkaro" style="background-color: #f8f8ff; margin: 40px 45px 40px 45px">
+  <div class="hoverkaro" style="background-color: #f8f8ff; ">
       <div class="row ">
         <div class="col-md-12">
           <div class="card flex-md-row mb-4 box-shadow h-md-250">
@@ -36,47 +67,50 @@ label {
       <!-- <b>Title: {{ i.title }}</b><br> -->
       <!-- <div style="background-color: black; color: white; border: 5px s`olid black"> -->
         <!-- <img src="/media/{{ prof.profile_pic }}" alt="Avatar" style="width:50px;border-radius: 50%;float:left;margin-right:10px;"> -->
-      <h3 class="mb-0">
+      <h3 class="mb-0" style="font-weight: 700;">
       {{ i.title }}
     </h3>
       <!-- <i><b>User:</b> {{ i.user }}</i><br>
       <i><b>Date:</b> {{ i.date_created }}</i> -->
     <div>
-      <p style="font-size: 14px; margin-top:-5px"><i><b>{{ i.date_created }} by <a href=#>{{ i.user }}</a></b></i></p>
+      <p style="font-size: 14px; margin-top:-5px"><i><b>{{ i.date_created }} </b> </i> by <strong class="" style="text-decorationn: none; font-size: 18px; font-weight: 600;">{{ i.user }}</strong></p>
       <hr style="margin-top: -5px; background-color:lightgrey; height: 1px;"/>
       {% if i.user == user %}
-      <div style="position: absolute; right:35px; top: 25px;">
-        <a href="{% url 'forum:update' i.id %}"><button class="btn btn-danger">Update</button></a>&nbsp&nbsp&nbsp
-        <a href="{% url 'forum:delete' i.id %}"><button class="btn btn-danger">Delete</button></a>
+      <div style="margin-bottom: 10px;" id="updateDelete" >
+        <a href="{% url 'forum:update' i.id %}"><button  class="btn btn-danger btn-sm addComment">Update</button></a>
+        <a href="{% url 'forum:delete' i.id %}"><button class="btn btn-danger btn-sm addComment">Delete</button></a>
       </div>
       {% endif %}
 
     </div>
 
       <!-- <p>{{ i.text }}</p><br> -->
-      <p class="card-text mb-auto">{{ i.text }}</p><br>
+      <p class="card-text mb-auto" style="width: 100%; font-family: verdana;overflow-wrap: break-word; word-wrap: break-word;">{{ i.text }}</p><br>
 
-        <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#{{ i.id }}" style="float:left;" >{{ i.comments.count }} Comments</button>
+        <button type="button" class="btn btn-sm btn-danger" data-toggle="collapse" data-target="#{{ i.id }}" style="float:left;"
+        id="">
+          {{ i.comments.count }} Comments</button>
         {% if user.is_authenticated %}
-        <a href="{% url 'forum:comment' i.id %}"><button class="btn btn-danger" style="margin-left:80%;margin-right:5px;margin-bottom:15px;">Add Comment</button></a><br>
+        <a href="{% url 'forum:comment' i.id %}"><button class="btn btn-danger" id="addComment" style="">Add Comment</button></a><br>
         {% else %}
-        <a href="/login/" style="float: right"><button class="btn btn-danger">Add Comment</button></a><br>
+        <a href="/login/"><button class="btn btn-danger" id="addComment">Add Comment</button></a><br>
         {% endif %}
         <div id="{{ i.id }}" class="collapse" style="float:clear;">
-          <div id="comment" class="container">
+          <div id="comment" class="">
               <div>
                 {% for c in i.comments.all %}
                   <!-- <img src="media/default_user.png" alt="Avatar" style="width:50px;border-radius: 50%;float:left;margin-right:5px;"> -->
-                  <div style="float: left"><p class="card-text mb-auto">{{ c.comment }}<div class="mb-1 text-muted">by {{ c.user }}</div></p></div>
+                  <div style="float: left"><p class="card-text mb-auto">{{ c.comment }}
+                    <div class="mb-1 text-muted">by {{ c.user }}</div></p></div>
                 {% if c.user == user %}
                 <div style="float:right">
-                <a href="{% url 'forum:comment_delete' c.id %}" style="color: grey;">Delete</a>
-                <a href="{% url 'forum:comment_update' c.id %}">Update</a>
+                <a href="{% url 'forum:comment_delete' c.id %}" class="btn " style="border: 2px solid lightgray;">Delete</a>
+                <a href="{% url 'forum:comment_update' c.id %}" class="btn" style="border: 2px solid lightgray;">Update</a>
                 </div>
                 {% endif %}
                 <br/><br/>
+                <hr style="background-color: lightgray;height: 1px; width:100%"/>
                 <hr style="float: clear"/>
-                <hr style="background-color: lightgray;height: 1px;"/>
                 {% endfor %}
               </div>
             </div>

@@ -33,10 +33,18 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
 }
+@media only screen and (max-width: 418px) {
+  textarea{
+    width: 100%;
+  }
+  .unalign{
+    width: 100%;
+  }
+}
 </style>
 <a href="{% url 'forum:list' %}" class="nav nav-link">Go Back</a>
-<div class="updPost">
-  <form  action="" method="post">
+<div class="updPost unalign">
+  <form  action="" class="unalign" method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <input type="submit" value="Update" class="btn btn-danger">
