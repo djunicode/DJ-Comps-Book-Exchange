@@ -93,7 +93,7 @@ label {  display: none;
         {% if user.is_authenticated %}
         <a href="{% url 'forum:comment' i.id %}"><button class="btn btn-danger" id="addComment" style="">Add Comment</button></a><br>
         {% else %}
-        <a href="/login/" style="float: right"><button class="btn btn-danger" id="addComment">Add Comment</button></a><br>
+        <a href="/login/"><button class="btn btn-danger" id="addComment">Add Comment</button></a><br>
         {% endif %}
         <div id="{{ i.id }}" class="collapse" style="float:clear;">
           <div id="comment" class="">
