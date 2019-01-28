@@ -4,6 +4,7 @@ from channels.db import database_sync_to_async
 from .models import Message, ChatRoom
 from django.contrib.auth.models import User
 import json
+from pytz import timezone
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -70,12 +71,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         chat_hist_data = []
         for i in m:
+            IST = timezone("Asia/Kolkata")
+            i.timestamp = i.timestamp.astimezone(IST)
+            timestamp = (str(i.timestamp.day) + "/" + str(i.timestamp.month) + "/" + str(i.timestamp.year) + " " +
+                         str(i.timestamp.hour) + ":" + str(i.timestamp.minute))
+
             chat_hist_data.append(
                 {
                     "conversation": i.conversation.id,
                     "sender": i.sender1.username,
                     "receiver": i.receiver1.username,
                     "message": i.message,
+                    "timestamp": timestamp,
                 }
             )
         # print(chat_hist_data)
