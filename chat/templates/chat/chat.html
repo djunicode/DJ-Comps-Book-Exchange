@@ -24,7 +24,7 @@
             <textarea class="form-control" id="message" rows="1"></textarea>
         </div>
         <div class="col-2">
-            <button type="submit" class="btn btn-primary sendMessageBtn" id="chat-submit">
+            <button type="submit" class="btn sendMessageBtn" id="chat-submit">
                 Send
             </button>
         </div>
@@ -105,11 +105,14 @@
     document.querySelector('#chat-submit').onclick = function(e) {
         var messageInputDom = document.querySelector('#message');
         var message = messageInputDom.value;
-        chatSocket.send(JSON.stringify({
-            'message': message,
-            'sender': user1,
-            'receiver': user2
-        }));
+        var regEx = /<[^>]*/g;
+        if(!regEx.test(message)) {
+          chatSocket.send(JSON.stringify({
+              'message': message,
+              'sender': user1,
+              'receiver': user2
+          }));
+        }
 
         messageInputDom.value = '';
     };
