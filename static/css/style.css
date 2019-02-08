@@ -1839,7 +1839,6 @@ label {
 	font-size: 0.8925em;
 	color: #333333;
 	-webkit-appearance: none;
-	text-transform: capitalize;
 	background: #FFFFFF;
 	border: 1px solid rgb(231, 231, 231);
 	font-weight: normal;
@@ -1847,7 +1846,6 @@ label {
 .registration_form input[type="submit"]{
 	-webkit-appearance: none;
 	color: #ffffff;
-	text-transform: capitalize;
 	display: inline-block;
 	background:#B52E31;
 	padding: 10px 20px;
