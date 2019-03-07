@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponseRedirect
-from .models import Post, Comment
+from django.http import HttpResponseRedirect, JsonResponse
+from .models import Post, Comment, Upvote
 
 # from sign_in.models import Profile
 from .forms import PostForm, CommentForm
@@ -19,6 +19,7 @@ from .filters import PostFilter
 def search_post(request):
     post_list = Post.objects.all()
     post_filtered = PostFilter(request.GET, queryset=post_list)
+
     return render(
         request,
         "forum/index.html",
@@ -122,3 +123,18 @@ class CommentUpdate(LoginRequiredMixin, UserOwnerMixin, UpdateView):
     model = Comment
     template_name = "forum/comm_update.html"
     success_url = reverse_lazy("forum:list")
+
+
+def upvote_comment(request, pk):
+    comm = Comment.objects.get(pk=pk)
+    check_upvote = Upvote.objects.filter(comment=comm, upvote_by=request.user).exists()
+    if check_upvote:
+        return JsonResponse({'upvotes': False})
+    else:
+        upvote = Upvote()
+        upvote.comment = comm
+        upvote.upvote_by = request.user
+        upvote.save()
+
+        all_upvotes = Upvote.objects.filter(comment=comm).count()
+        return JsonResponse({'upvotes': all_upvotes})

@@ -7,6 +7,7 @@ from .views import (
     CommentDelete,
     CommentUpdate,
     search_post,
+    upvote_comment,
 )
 
 urlpatterns = [
@@ -15,6 +16,7 @@ urlpatterns = [
     url(r"^update/(?P<pk>\d+)/$", PostUpdate.as_view(), name="update"),
     url(r"^delete/(?P<pk>\d+)/$", PostDelete.as_view(), name="delete"),
     url(r"^comment/(?P<pk>\d+)/$", comment_to_post, name="comment"),
+    url(r"^upvote/(?P<pk>\d+)/$", upvote_comment, name="upvote"),
     url(
         r"^comment/delete/(?P<pk>\d+)/$", CommentDelete.as_view(), name="comment_delete"
     ),
