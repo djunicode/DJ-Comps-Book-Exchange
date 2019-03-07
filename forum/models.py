@@ -24,12 +24,13 @@ class Comment(models.Model):
     user = models.ForeignKey("auth.User")
     comment = models.CharField(max_length=256)
     date_created = models.DateTimeField(default=timezone.now)
+    upvote_count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.comment
 
     class Meta:
-        ordering = ["-date_created"]
+        ordering = ["-upvote_count"]
 
 
 class Upvote(models.Model):

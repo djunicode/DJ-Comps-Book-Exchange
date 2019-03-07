@@ -137,4 +137,5 @@ def upvote_comment(request, pk):
         upvote.save()
 
         all_upvotes = Upvote.objects.filter(comment=comm).count()
+        Comment.objects.filter(pk=pk).update(upvote_count=all_upvotes)
         return JsonResponse({'upvotes': all_upvotes})
