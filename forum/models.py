@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 # from django.urls import reverse
 # Create your models here.
@@ -23,9 +24,18 @@ class Comment(models.Model):
     user = models.ForeignKey("auth.User")
     comment = models.CharField(max_length=256)
     date_created = models.DateTimeField(default=timezone.now)
+    upvote_count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.comment
 
     class Meta:
-        ordering = ["-date_created"]
+        ordering = ["-upvote_count"]
+
+
+class Upvote(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name="upvotes")
+    upvote_by = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.comment.comment + ' ' + self.upvote_by.username

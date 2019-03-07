@@ -11,4 +11,4 @@ class PostForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        exclude = ["user", "date_created", "post"]
+        exclude = ["user", "date_created", "post", "upvote_count"]

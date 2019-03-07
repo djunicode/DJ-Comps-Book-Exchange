@@ -102,12 +102,14 @@ label {  display: none;
                   <!-- <img src="media/default_user.png" alt="Avatar" style="width:50px;border-radius: 50%;float:left;margin-right:5px;"> -->
                   <div style="float: left"><p class="card-text mb-auto">{{ c.comment }}
                     <div class="mb-1 text-muted">by {{ c.user }}</div></p></div>
-                {% if c.user == user %}
                 <div style="float:right">
+                {% if c.user == user %}
                 <a href="{% url 'forum:comment_delete' c.id %}" class="btn " style="border: 2px solid lightgray;">Delete</a>
                 <a href="{% url 'forum:comment_update' c.id %}" class="btn" style="border: 2px solid lightgray;">Update</a>
-                </div>
                 {% endif %}
+                <a id="upvoteBtn" onclick="upvote({{ c.id }})" class="btn" style="border: 2px solid lightgray;">Upvote</a><br>
+                <p id="upvoteCount{{ c.id }}" class="btn" style="margin-top: 3px;width: 100%">Upvotes: {{ c.upvotes.count }}</p>
+                </div>
                 <br/><br/>
                 <hr style="background-color: lightgray;height: 1px; width:100%"/>
                 <hr style="float: clear"/>
@@ -126,4 +128,23 @@ label {  display: none;
   {% else %}
     <b>NO POSTS!</b>
   {% endif %}
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script type="text/javascript">
+  function upvote(id){
+    console.log("clicked");
+    var element_to_update = '#upvoteCount' + id;
+    $.ajax({
+      url: '/forum/upvote/' + id + '/',
+      data: {},
+      success: function(data){
+        if(data.upvotes){
+          console.log(data);
+          $(element_to_update).contents()[0].textContent = "Upvotes: " + data.upvotes
+        }
+      }
+    })
+  };
+</script>
+
 {% endblock %}
